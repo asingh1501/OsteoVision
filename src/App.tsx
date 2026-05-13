@@ -14,10 +14,9 @@ import { TreatmentEffectiveness } from './pages/TreatmentEffectiveness';
 import { TreatmentPlan } from './pages/TreatmentPlan';
 import type { PageId, RiskAnalysisResult } from './types';
 
-const pageLabels: Record<PageId, string> = {
+const pageLabels: Partial<Record<PageId, string>> = {
   dashboard: 'Dashboard',
   testing: 'Comprehensive Testing',
-  score: 'OA Chance Score',
   history: 'Test History',
   plan: 'Treatment Plan',
   effectiveness: 'Treatment Effectiveness',
@@ -65,6 +64,7 @@ function App() {
               onChange={(event) => setActivePage(event.target.value as PageId)}
               className="w-full rounded-xl border border-slate-300 bg-white p-3 font-bold text-navy"
             >
+              {activePage === 'score' && <option value="score">OA Chance Score</option>}
               {Object.entries(pageLabels).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
             </select>
           </div>

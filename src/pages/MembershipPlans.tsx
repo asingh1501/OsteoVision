@@ -14,17 +14,17 @@ export function MembershipPlans() {
         <p className="mt-3 max-w-3xl text-slate-600">Complete access to connected osteoarthritis monitoring, personalized care planning, and clinician-ready insights.</p>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="card p-6 ring-2 ring-violet/20">
+        <div className="card p-6 ring-2 ring-violet">
           <div className="flex items-center justify-between gap-3">
             <h2 className="text-2xl font-black text-navy">Annual</h2>
             <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-bold text-emerald-700">Save $33/year</span>
           </div>
-          <p className="mt-4 text-5xl font-black text-navy">$267<span className="text-base text-slate-500">/year</span></p>
+          <p className="text-safe mt-4 text-4xl font-black text-navy md:text-5xl">$267<span className="text-base text-slate-500">/year</span></p>
           <Button className="mt-6 w-full" onClick={() => setSelectedPlan('Annual membership selected. Mock checkout is ready for the HOSA demo.')}>Subscribe Annual</Button>
         </div>
         <div className="card p-6">
           <h2 className="text-2xl font-black text-navy">Monthly</h2>
-          <p className="mt-4 text-5xl font-black text-navy">$25<span className="text-base text-slate-500">/month</span></p>
+          <p className="text-safe mt-4 text-4xl font-black text-navy md:text-5xl">$25<span className="text-base text-slate-500">/month</span></p>
           <Button className="mt-6 w-full" variant="secondary" onClick={() => setSelectedPlan('Monthly membership selected. Mock checkout is ready for the HOSA demo.')}>Subscribe Monthly</Button>
         </div>
       </div>

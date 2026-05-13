@@ -13,7 +13,7 @@ const statusStyles: Record<string, string> = {
 
 export function RiskBadge({ status }: { status: Status | 'high' | 'moderate' | 'low' | string }) {
   return (
-    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-bold capitalize ring-1 ${statusStyles[status] ?? statusStyles.stable}`}>
+    <span className={`inline-flex shrink-0 rounded-full px-2.5 py-1 text-xs font-bold capitalize leading-4 ring-1 ${statusStyles[status] ?? statusStyles.stable}`}>
       {status}
     </span>
   );

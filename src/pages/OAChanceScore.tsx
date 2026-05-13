@@ -205,17 +205,17 @@ export function OAChanceScore({ analysis, onAnalysisComplete, onEditInputs }: { 
             </div>
           </div>
         </div>
-        <div className="p-8">
-          <div className="flex flex-wrap items-end gap-5">
-          <span className="text-7xl font-black text-navy">{analysis.score}%</span>
-          <div>
-            <p className="text-2xl font-bold text-violet">{analysis.category}</p>
-            <p className="max-w-2xl text-slate-600">Generated from the patient-entered biomarkers, imaging severity, symptom pattern, mobility score, genetic risk percentile, and treatment adherence.</p>
-          </div>
+        <div className="p-6 md:p-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end">
+            <span className="text-safe text-5xl font-black text-navy md:text-6xl">{analysis.score}%</span>
+            <div className="min-w-0">
+              <p className="text-safe text-2xl font-bold text-violet">{analysis.category}</p>
+              <p className="text-safe max-w-2xl text-slate-600">Generated from the patient-entered biomarkers, imaging severity, symptom pattern, mobility score, genetic risk percentile, and treatment adherence.</p>
+            </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {analysis.drivers.length > 0 ? analysis.drivers.map((driver) => (
-              <span key={driver} className="rounded-full border border-violet/15 bg-white px-3 py-1.5 text-xs font-bold text-slate-700">{driver}</span>
+              <span key={driver} className="rounded-full border border-violet bg-lavender px-3 py-1.5 text-xs font-bold text-violet">{driver}</span>
             )) : <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">No major out-of-range drivers entered</span>}
           </div>
         </div>
@@ -239,16 +239,16 @@ export function OAChanceScore({ analysis, onAnalysisComplete, onEditInputs }: { 
           <p className="mt-3 leading-7 text-slate-600">The prototype combines imaging severity, symptoms and mobility, inflammation biomarkers, genetic risk, nutrient deficiencies, and treatment response. It supports risk awareness and care planning but is not a clinical diagnostic algorithm.</p>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {breakdown.map((item) => (
-              <div key={item.name} className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div key={item.name} className="rounded-2xl border border-violet bg-lavender p-3">
                 <p className="text-sm font-bold text-navy">{item.name}</p>
-                <p className="text-xs font-semibold text-slate-500">Input severity {item.value}/100 · model weight {item.weight}</p>
+                <p className="text-safe text-xs font-semibold text-slate-500">Input severity {item.value}/100 · model weight {item.weight}</p>
               </div>
             ))}
           </div>
           <h3 className="mt-6 font-bold text-navy">Recommended Next Steps</h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {['Continue symptom tracking', 'Review results with clinician', 'Begin targeted inflammation reduction plan', 'Schedule follow-up testing', 'Consider physical therapy evaluation'].map((step) => (
-              <div key={step} className="flex items-center gap-2 rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">
+              <div key={step} className="flex items-center gap-2 rounded-2xl bg-lavender p-3 text-sm font-semibold text-navy">
                 <CheckCircle2 className="h-5 w-5 text-violet" /> {step}
               </div>
             ))}
@@ -276,7 +276,7 @@ function AnalysisInputPanel({
       <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
         <div>
           <h2 className="text-xl font-black text-navy">Patient And Test Data</h2>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+          <p className="text-safe mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Enter values from uploaded lab reports, imaging summaries, symptom tracking, and treatment adherence. Blank fields are not estimated.
           </p>
         </div>
@@ -338,22 +338,22 @@ function AnalysisInputPanel({
 
 function InputGroup({ title, description, icon, accent, children }: { title: string; description: string; icon: ReactNode; accent: 'violet' | 'pink' | 'indigo' | 'fuchsia'; children: ReactNode }) {
   const styles = {
-    violet: 'border-violet/20 bg-lavender text-violet',
+    violet: 'border-violet bg-lavender text-violet',
     pink: 'border-pink-200 bg-pink-50 text-pink-700',
     indigo: 'border-indigo-200 bg-indigo-50 text-indigo-700',
     fuchsia: 'border-fuchsia-200 bg-fuchsia-50 text-fuchsia-700',
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
       <div className="mb-4 flex items-start gap-3">
         <div className={`rounded-xl border p-2.5 [&_svg]:h-5 [&_svg]:w-5 ${styles[accent]}`}>{icon}</div>
         <div>
-          <h3 className="text-base font-black text-navy">{title}</h3>
-          <p className="mt-1 text-sm text-slate-600">{description}</p>
+        <h3 className="text-safe text-base font-black text-navy">{title}</h3>
+        <p className="text-safe mt-1 text-sm text-slate-600">{description}</p>
         </div>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{children}</div>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{children}</div>
     </div>
   );
 }
@@ -361,15 +361,15 @@ function InputGroup({ title, description, icon, accent, children }: { title: str
 function InputField({ label, unit, value, onChange }: { label: string; unit: string; value: number | ''; onChange: (value: string) => void }) {
   return (
     <label className="block rounded-2xl border border-slate-200 bg-white p-4">
-      <span className="text-sm font-bold text-navy">{label}</span>
+      <span className="text-safe text-sm font-bold text-navy">{label}</span>
       <div className="mt-2 flex items-center gap-2">
         <input
           type="number"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy outline-none focus:border-violet focus:ring-2 focus:ring-violet/10"
+          className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy outline-none focus:border-violet focus:ring-2 focus:ring-violet"
         />
-        <span className="shrink-0 text-xs font-bold text-slate-500">{unit}</span>
+        <span className="text-safe shrink-0 text-xs font-bold text-slate-500">{unit}</span>
       </div>
     </label>
   );

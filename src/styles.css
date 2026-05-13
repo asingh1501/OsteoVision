@@ -11,10 +11,15 @@
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
 }
 
 button, input, select {
   font: inherit;
+}
+
+* {
+  min-width: 0;
 }
 
 @layer components {
@@ -24,5 +29,10 @@ button, input, select {
 
   .gradient-panel {
     @apply border border-slate-200 bg-white text-navy shadow-soft;
+  }
+
+  .text-safe {
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 }

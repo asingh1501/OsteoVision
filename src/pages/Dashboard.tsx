@@ -58,7 +58,7 @@ export function Dashboard({ onNavigate, analysis }: { onNavigate: (page: PageId)
 
       <div className="card p-5">
         <h3 className="mb-4 text-lg font-bold text-navy">Quick Actions</h3>
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
           {quickActions.map(([label, Icon, page]) => (
             <Button key={label} variant="secondary" onClick={() => onNavigate(page)}>
               <Icon className="h-4 w-4" />

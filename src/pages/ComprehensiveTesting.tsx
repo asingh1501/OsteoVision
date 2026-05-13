@@ -54,7 +54,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
               <h3 className="text-lg font-black text-navy">Uploaded Reports</h3>
               <div className="mt-3 space-y-2">
                 {uploadedReports.map((report) => (
-                  <div key={report} className="flex items-center gap-2 rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">
+                  <div key={report} className="flex items-center gap-2 rounded-2xl bg-lavender p-3 text-sm font-semibold text-navy">
                     <CheckCircle2 className="h-5 w-5 text-emerald-500" /> {report}
                   </div>
                 ))}
@@ -88,7 +88,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
           <Button className="mt-4" variant="secondary" onClick={() => setScheduledTests((current) => [`${testingType} on ${testingDate}`, ...current])}><CalendarClock className="h-4 w-4" /> Hold Testing Slot</Button>
           {scheduledTests.length > 0 && (
             <div className="mt-4 space-y-2">
-              {scheduledTests.map((slot) => <div key={slot} className="rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">{slot}</div>)}
+              {scheduledTests.map((slot) => <div key={slot} className="rounded-2xl bg-lavender p-3 text-sm font-semibold text-navy">{slot}</div>)}
             </div>
           )}
         </div>
@@ -117,7 +117,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
           <Button className="mt-4" onClick={() => setHomeVisits((current) => [`${homeVisitRole} home blood draw requested for ${homeVisitDate}`, ...current])}><Syringe className="h-4 w-4" /> Request Home Visit</Button>
           {homeVisits.length > 0 && (
             <div className="mt-4 space-y-2">
-              {homeVisits.map((visit) => <div key={visit} className="rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">{visit}</div>)}
+              {homeVisits.map((visit) => <div key={visit} className="rounded-2xl bg-lavender p-3 text-sm font-semibold text-navy">{visit}</div>)}
             </div>
           )}
         </div>
@@ -163,7 +163,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
             ['8-OHdG high', 'Discuss oxidative stress contributors, recovery, smoking exposure, and follow-up testing.'],
             ['Mobility below goal', 'Consider a physical therapy evaluation for strength, gait, and joint-friendly loading.'],
           ].map(([title, copy]) => (
-            <div key={title} className="rounded-2xl bg-slate-50 p-4">
+            <div key={title} className="rounded-2xl bg-lavender p-4">
               <h3 className="font-bold text-navy">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
             </div>

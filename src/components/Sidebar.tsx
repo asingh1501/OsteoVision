@@ -1,10 +1,9 @@
-import { Activity, BarChart3, BookOpen, CalendarCheck, ClipboardList, Dna, FileText, HeartPulse, History, LayoutDashboard, MapPin, Stethoscope } from 'lucide-react';
+import { BarChart3, BookOpen, CalendarCheck, ClipboardList, Dna, FileText, HeartPulse, History, LayoutDashboard, MapPin, Stethoscope } from 'lucide-react';
 import type { NavItem, PageId } from '../types';
 
 const navItems: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'testing', label: 'Comprehensive Testing', icon: ClipboardList },
-  { id: 'score', label: 'OA Chance Score', icon: Activity },
   { id: 'history', label: 'Test History', icon: History },
   { id: 'plan', label: 'Treatment Plan', icon: CalendarCheck },
   { id: 'effectiveness', label: 'Treatment Effectiveness', icon: BarChart3 },
@@ -33,7 +32,7 @@ export function Sidebar({ activePage, onNavigate }: { activePage: PageId; onNavi
             key={id}
             onClick={() => onNavigate(id)}
             className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm font-bold transition ${
-              activePage === id ? 'bg-lavender text-violet ring-1 ring-violet/15' : 'text-slate-600 hover:bg-slate-50 hover:text-navy'
+              activePage === id ? 'bg-lavender text-violet ring-1 ring-violet' : 'text-slate-600 hover:bg-lavender hover:text-navy'
             }`}
           >
             <Icon className="h-5 w-5" />

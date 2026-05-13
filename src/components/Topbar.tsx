@@ -17,7 +17,7 @@ const titles: Record<PageId, string> = {
 
 export function Topbar({ activePage }: { activePage: PageId }) {
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 px-4 py-4 backdrop-blur-xl md:px-8">
+    <header className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4 md:px-8">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-violet">OsteoVision</p>

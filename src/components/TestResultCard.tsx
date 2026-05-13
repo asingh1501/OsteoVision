@@ -14,7 +14,7 @@ export function TestResultCard({ item, selected, onSelect }: { item: TestHistory
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {item.changedMarkers.map((marker) => (
-          <span key={marker} className="rounded-full bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600">{marker}</span>
+          <span key={marker} className="rounded-full bg-lavender px-2.5 py-1 text-xs font-semibold text-violet">{marker}</span>
         ))}
       </div>
     </button>

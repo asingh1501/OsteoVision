@@ -17,7 +17,7 @@ export function ClinicianSummary({ analysis }: { analysis: RiskAnalysisResult | 
           <h1 className="text-2xl font-black text-navy">Doctor-Friendly Visit Summary</h1>
           <p className="mt-2 text-slate-600">{patientProfile.name}, age {patientProfile.age} · Primary focus: {patientProfile.primaryJoint}</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <Button variant="secondary" onClick={() => setActionMessage(analysis ? 'Clinician summary PDF generated in the demo export queue.' : 'Enter testing data and run analysis before exporting a complete clinician summary.')}><Download className="h-4 w-4" /> Export PDF</Button>
           <Button onClick={() => setActionMessage(analysis ? 'Secure provider-share request prepared for Northlake Orthopedics.' : 'Run analysis first so the provider summary includes current score and risk drivers.') }><Share2 className="h-4 w-4" /> Share with Provider</Button>
         </div>
@@ -27,10 +27,10 @@ export function ClinicianSummary({ analysis }: { analysis: RiskAnalysisResult | 
         <div className="card p-6">
           <h2 className="text-xl font-black text-navy">Patient Overview</h2>
           <dl className="mt-4 space-y-3 text-sm">
-            <div className="flex justify-between"><dt className="text-slate-500">OA Chance Score</dt><dd className="font-bold text-navy">{analysis ? `${analysis.score}%` : 'Not run'}</dd></div>
-            <div className="flex justify-between"><dt className="text-slate-500">Disease Stage</dt><dd className="font-bold text-navy">{analysis ? analysis.category : 'Pending analysis'}</dd></div>
-            <div className="flex justify-between"><dt className="text-slate-500">Symptom Trend</dt><dd className="font-bold text-navy">{analysis ? `${analysis.inputs.symptomSeverity}/100 severity input` : 'Pending input'}</dd></div>
-            <div className="flex justify-between"><dt className="text-slate-500">Care Team</dt><dd className="font-bold text-navy">{patientProfile.careTeam}</dd></div>
+            <div className="grid grid-cols-[1fr_auto] gap-3"><dt className="text-slate-500">OA Chance Score</dt><dd className="text-safe text-right font-bold text-navy">{analysis ? `${analysis.score}%` : 'Not run'}</dd></div>
+            <div className="grid grid-cols-[1fr_auto] gap-3"><dt className="text-slate-500">Disease Stage</dt><dd className="text-safe text-right font-bold text-navy">{analysis ? analysis.category : 'Pending analysis'}</dd></div>
+            <div className="grid grid-cols-[1fr_auto] gap-3"><dt className="text-slate-500">Symptom Trend</dt><dd className="text-safe text-right font-bold text-navy">{analysis ? `${analysis.inputs.symptomSeverity}/100 severity input` : 'Pending input'}</dd></div>
+            <div className="grid grid-cols-[1fr_auto] gap-3"><dt className="text-slate-500">Care Team</dt><dd className="text-safe text-right font-bold text-navy">{patientProfile.careTeam}</dd></div>
           </dl>
           <div className="mt-5"><ProgressBar value={76} label="Treatment adherence" /></div>
         </div>
