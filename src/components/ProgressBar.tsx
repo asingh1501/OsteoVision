@@ -6,7 +6,7 @@ export function ProgressBar({ value, label }: { value: number; label?: string })
         <span>{value}%</span>
       </div>
       <div className="h-3 overflow-hidden rounded-full bg-slate-100">
-        <div className="h-full rounded-full bg-cyan" style={{ width: `${value}%` }} />
+        <div className="h-full rounded-full bg-violet" style={{ width: `${value}%` }} />
       </div>
     </div>
   );

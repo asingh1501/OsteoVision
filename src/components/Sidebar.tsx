@@ -19,7 +19,7 @@ export function Sidebar({ activePage, onNavigate }: { activePage: PageId; onNavi
   return (
     <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-slate-200 bg-white px-4 py-6 lg:block">
       <div className="mb-8 flex items-center gap-3 px-2">
-        <div className="rounded-xl bg-navy p-3 text-white">
+        <div className="rounded-xl bg-violet p-3 text-white">
           <Stethoscope className="h-6 w-6" />
         </div>
         <div>
@@ -33,7 +33,7 @@ export function Sidebar({ activePage, onNavigate }: { activePage: PageId; onNavi
             key={id}
             onClick={() => onNavigate(id)}
             className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm font-bold transition ${
-              activePage === id ? 'bg-slate-100 text-navy ring-1 ring-slate-200' : 'text-slate-600 hover:bg-slate-50 hover:text-navy'
+              activePage === id ? 'bg-lavender text-violet ring-1 ring-violet/15' : 'text-slate-600 hover:bg-slate-50 hover:text-navy'
             }`}
           >
             <Icon className="h-5 w-5" />

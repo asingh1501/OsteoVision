@@ -20,7 +20,7 @@ export function Topbar({ activePage }: { activePage: PageId }) {
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 px-4 py-4 backdrop-blur-xl md:px-8">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan">OsteoVision</p>
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-violet">OsteoVision</p>
           <h2 className="text-2xl font-black text-navy">{titles[activePage]}</h2>
           <p className="mt-1 text-sm text-slate-600">Proactive osteoarthritis care through connected diagnostics, trend monitoring, and personalized treatment support.</p>
         </div>

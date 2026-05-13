@@ -23,21 +23,21 @@ export function DrugGeneticTesting() {
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <div className="gradient-panel rounded-2xl p-6">
           <div className="flex items-start gap-4">
-            <div className="rounded-xl bg-slate-100 p-3 text-cyan">
+            <div className="rounded-xl bg-slate-100 p-3 text-violet">
               <Dna className="h-7 w-7" />
             </div>
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan">Expanded medication genetics panel</p>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-violet">Expanded medication genetics panel</p>
               <h2 className="mt-2 text-2xl font-black">Wide-Range Drug Response Screening</h2>
               <p className="mt-3 text-slate-600">Prototype testing module for reviewing whether inherited gene variants may alter how an individual processes, responds to, or experiences side effects from many medication categories. It supports clinician discussion and does not predict every reaction.</p>
             </div>
           </div>
         </div>
         <div className="card p-6">
-          <h3 className="flex items-center gap-2 text-xl font-black text-navy"><ShieldCheck className="h-6 w-6 text-cyan" /> Panel Coverage Preview</h3>
+          <h3 className="flex items-center gap-2 text-xl font-black text-navy"><ShieldCheck className="h-6 w-6 text-violet" /> Panel Coverage Preview</h3>
           <div className="mt-4 flex flex-wrap gap-2">
             {['Pain medications', 'Anti-inflammatories', 'Anticoagulants', 'Antidepressants', 'Cardiology drugs', 'Steroids', 'DMARDs', 'Anesthesia sensitivity'].map((category) => (
-              <span key={category} className="rounded-full bg-slate-50 px-3 py-1.5 text-sm font-bold text-cyan">{category}</span>
+              <span key={category} className="rounded-full bg-slate-50 px-3 py-1.5 text-sm font-bold text-violet">{category}</span>
             ))}
           </div>
           <Button className="mt-5" variant="secondary" onClick={() => setScheduled('Medication genetics panel scheduled for the next available home or lab collection slot.')}>Schedule Medication Genetics Test</Button>
@@ -48,7 +48,7 @@ export function DrugGeneticTesting() {
         <div className="card p-5">
           <h3 className="text-lg font-black text-navy">Clinician Discussion List</h3>
           <div className="mt-3 flex flex-wrap gap-2">
-            {discussionList.map((name) => <span key={name} className="rounded-full bg-slate-50 px-3 py-1.5 text-sm font-bold text-cyan">{name}</span>)}
+            {discussionList.map((name) => <span key={name} className="rounded-full bg-slate-50 px-3 py-1.5 text-sm font-bold text-violet">{name}</span>)}
           </div>
         </div>
       )}
@@ -63,7 +63,7 @@ export function DrugGeneticTesting() {
               <RiskBadge status={med.risk} />
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
-              {med.genes.map((gene) => <span key={gene} className="rounded-full bg-slate-50 px-2.5 py-1 text-xs font-bold text-cyan">{gene}</span>)}
+              {med.genes.map((gene) => <span key={gene} className="rounded-full bg-slate-50 px-2.5 py-1 text-xs font-bold text-violet">{gene}</span>)}
             </div>
             <p className="mt-4 text-sm leading-6 text-slate-600">{med.concern}</p>
             <Button className="mt-5 w-full" variant="secondary" onClick={() => setDiscussionList((current) => current.includes(med.name) ? current : [...current, med.name])}>

@@ -22,7 +22,7 @@ export function FindDoctors() {
       <div className="card p-6">
         <h1 className="text-2xl font-black text-navy">Recommended Specialties Based On Latest Results</h1>
         <div className="mt-4 flex flex-wrap gap-2">
-          {specialties.slice(1).map((item) => <span key={item} className="rounded-full bg-slate-50 px-3 py-1.5 text-sm font-bold text-cyan">{item}</span>)}
+          {specialties.slice(1).map((item) => <span key={item} className="rounded-full bg-slate-50 px-3 py-1.5 text-sm font-bold text-violet">{item}</span>)}
         </div>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
           <select value={specialty} onChange={(event) => setSpecialty(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
@@ -50,7 +50,7 @@ export function FindDoctors() {
         </div>
         {contacted.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {contacted.map((name) => <span key={name} className="rounded-full bg-cyan/10 px-3 py-1.5 text-sm font-bold text-cyan">{name} contact request sent</span>)}
+            {contacted.map((name) => <span key={name} className="rounded-full bg-lavender px-3 py-1.5 text-sm font-bold text-violet">{name} contact request sent</span>)}
           </div>
         )}
         {providerSearch.length > 1 && !searchedProviderInArea && <p className="mt-3 text-sm font-semibold text-rose-600">Provider not found in the local area list. Add is unavailable until the provider is verified in area results.</p>}
@@ -59,7 +59,7 @@ export function FindDoctors() {
         {filtered.map((doctor) => (
           <div key={doctor.name} className="card p-5">
             <h3 className="text-xl font-black text-navy">{doctor.name}</h3>
-            <p className="font-semibold text-cyan">{doctor.specialty}</p>
+            <p className="font-semibold text-violet">{doctor.specialty}</p>
             <p className="mt-3 text-sm text-slate-600">{doctor.clinic}</p>
             <div className="mt-4 flex items-center justify-between text-sm font-bold text-navy">
               <span className="flex items-center gap-1"><Star className="h-4 w-4 fill-amber-400 text-amber-400" /> {doctor.rating}</span>

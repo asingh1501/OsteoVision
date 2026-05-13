@@ -41,7 +41,7 @@ export function TestHistory() {
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {[baseline, current].map((item) => (
               <div key={item.id} className="rounded-2xl bg-slate-50 p-4">
-                <p className="text-sm font-bold text-cyan">{item.date}</p>
+                <p className="text-sm font-bold text-violet">{item.date}</p>
                 <p className="mt-1 text-3xl font-black text-navy">{item.score}%</p>
                 <p className="text-sm text-slate-600">{item.stage}</p>
               </div>

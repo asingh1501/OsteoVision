@@ -14,7 +14,7 @@ export function MembershipPlans() {
         <p className="mt-3 max-w-3xl text-slate-600">Complete access to connected osteoarthritis monitoring, personalized care planning, and clinician-ready insights.</p>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="card p-6 ring-2 ring-cyan/20">
+        <div className="card p-6 ring-2 ring-violet/20">
           <div className="flex items-center justify-between gap-3">
             <h2 className="text-2xl font-black text-navy">Annual</h2>
             <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-bold text-emerald-700">Save $33/year</span>
@@ -32,7 +32,7 @@ export function MembershipPlans() {
       <div className="card p-6">
         <h2 className="mb-4 text-xl font-black text-navy">Included Features</h2>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {features.map((feature) => <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-slate-700"><Check className="h-5 w-5 text-cyan" /> {feature}</div>)}
+          {features.map((feature) => <div key={feature} className="flex items-center gap-2 text-sm font-semibold text-slate-700"><Check className="h-5 w-5 text-violet" /> {feature}</div>)}
         </div>
       </div>
     </div>

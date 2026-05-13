@@ -16,7 +16,7 @@ export function OAChanceScore() {
   return (
     <div className="space-y-6">
       <div className="gradient-panel rounded-2xl p-8">
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan">Prototype decision-support model</p>
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-violet">Prototype decision-support model</p>
         <h1 className="mt-3 text-4xl font-black">Osteoarthritis Chance Score</h1>
         <div className="mt-6 flex flex-wrap items-end gap-5">
           <span className="text-7xl font-black text-navy">37%</span>
@@ -45,7 +45,7 @@ export function OAChanceScore() {
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {['Continue symptom tracking', 'Review results with clinician', 'Begin targeted inflammation reduction plan', 'Schedule follow-up testing', 'Consider physical therapy evaluation'].map((step) => (
               <div key={step} className="flex items-center gap-2 rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">
-                <CheckCircle2 className="h-5 w-5 text-cyan" /> {step}
+                <CheckCircle2 className="h-5 w-5 text-violet" /> {step}
               </div>
             ))}
           </div>

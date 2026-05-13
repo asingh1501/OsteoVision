@@ -9,7 +9,7 @@ export function StatCard({ title, value, caption, icon: Icon }: { title: string;
           <h3 className="mt-2 text-2xl font-bold text-navy">{value}</h3>
           <p className="mt-2 text-sm text-slate-500">{caption}</p>
         </div>
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-cyan">
+        <div className="rounded-xl border border-violet/15 bg-lavender p-3 text-violet">
           <Icon className="h-5 w-5" strokeWidth={2.2} />
         </div>
       </div>

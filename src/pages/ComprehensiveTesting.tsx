@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { RiskBadge } from '../components/RiskBadge';
 import { biomarkers, imagingResults } from '../data/mockData';
+import { calculateOAChanceScore, type OAFactors } from '../utils/calculateOAChanceScore';
 
 const groups = ['Blood Panel', 'Stool Analysis', 'Urine Test', 'Saliva / Genetic Test'] as const;
 
@@ -17,7 +18,25 @@ export function ComprehensiveTesting() {
   const [uploadedReports, setUploadedReports] = useState<string[]>([]);
   const [scheduledTests, setScheduledTests] = useState<string[]>([]);
   const [homeVisits, setHomeVisits] = useState<string[]>([]);
-  const [analysis, setAnalysis] = useState('');
+  const [analysis, setAnalysis] = useState<{ score: number; category: string; drivers: string[] } | null>(null);
+  const [inputs, setInputs] = useState({
+    vitaminD: 29,
+    omega3: 5.8,
+    hsCrp: 3.4,
+    il6: 4.9,
+    comp: 13.2,
+    oxidativeStress: 11.8,
+    microbiomeDiversity: 62,
+    geneticPercentile: 68,
+    imagingSeverity: 43,
+    symptomSeverity: 38,
+    mobilityScore: 68,
+    treatmentAdherence: 76,
+  });
+
+  const updateInput = (key: keyof typeof inputs, value: string) => {
+    setInputs((current) => ({ ...current, [key]: Number(value) }));
+  };
 
   const uploadReport = (files?: FileList | null) => {
     if (files && files.length > 0) {
@@ -29,7 +48,27 @@ export function ComprehensiveTesting() {
   };
 
   const runAnalysis = () => {
-    setAnalysis('Risk analysis complete: moderate risk pattern detected. Key drivers are hs-CRP, IL-6, Vitamin D, Omega-3 Index, 8-OHdG, and trace effusion.');
+    const inflammationScore = Math.min(100, Math.round((inputs.hsCrp / 6) * 35 + (inputs.il6 / 8) * 35 + (inputs.comp / 18) * 15 + (inputs.oxidativeStress / 18) * 15));
+    const nutrientDeficiencyScore = Math.min(100, Math.round((inputs.vitaminD < 40 ? (40 - inputs.vitaminD) * 2 : 0) + (inputs.omega3 < 8 ? (8 - inputs.omega3) * 10 : 0) + (inputs.microbiomeDiversity < 75 ? (75 - inputs.microbiomeDiversity) : 0)));
+    const symptomMobilityScore = Math.min(100, Math.round(inputs.symptomSeverity * 0.65 + (100 - inputs.mobilityScore) * 0.35));
+    const factors: OAFactors = {
+      imagingSeverity: inputs.imagingSeverity,
+      symptomSeverity: symptomMobilityScore,
+      inflammationScore,
+      geneticRisk: inputs.geneticPercentile,
+      nutrientDeficiencyScore,
+      treatmentAdherence: inputs.treatmentAdherence,
+    };
+    const result = calculateOAChanceScore(factors);
+    const drivers = [
+      inputs.hsCrp > 3 ? 'hs-CRP above preferred range' : '',
+      inputs.il6 > 2 ? 'IL-6 inflammation signal' : '',
+      inputs.vitaminD < 40 ? 'Vitamin D below target' : '',
+      inputs.omega3 < 8 ? 'Omega-3 Index below target' : '',
+      inputs.oxidativeStress > 8 ? '8-OHdG oxidative stress marker elevated' : '',
+      inputs.imagingSeverity > 40 ? 'Imaging severity input above baseline' : '',
+    ].filter(Boolean);
+    setAnalysis({ score: result.score, category: result.category, drivers });
   };
 
   return (
@@ -69,15 +108,47 @@ export function ComprehensiveTesting() {
           {analysis && (
             <div className="card p-5">
               <h3 className="text-lg font-black text-navy">Risk Analysis Result</h3>
-              <p className="mt-3 rounded-2xl bg-cyan/10 p-4 text-sm leading-6 text-slate-700">{analysis}</p>
+              <div className="mt-3 rounded-2xl border border-violet/15 bg-lavender p-4">
+                <p className="text-3xl font-black text-navy">{analysis.score}%</p>
+                <p className="mt-1 text-sm font-bold text-violet">{analysis.category}</p>
+                <p className="mt-3 text-sm leading-6 text-slate-700">
+                  Calculated from the values entered below using the prototype weighted model. This is decision-support only.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {analysis.drivers.map((driver) => <span key={driver} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-700">{driver}</span>)}
+                </div>
+              </div>
             </div>
           )}
         </div>
       )}
+      <section className="card p-6">
+        <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
+          <div>
+            <h2 className="text-xl font-black text-navy">Analysis Inputs</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Enter patient-reported symptoms, lab values, genetics, imaging severity, mobility, and adherence before running the prototype OA Chance Score model.</p>
+          </div>
+          <Button onClick={runAnalysis}><PlayCircle /> Calculate From Inputs</Button>
+        </div>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <InputField label="25(OH) Vitamin D" unit="ng/mL" value={inputs.vitaminD} onChange={(value) => updateInput('vitaminD', value)} />
+          <InputField label="Omega-3 Index" unit="%" value={inputs.omega3} onChange={(value) => updateInput('omega3', value)} />
+          <InputField label="hs-CRP" unit="mg/L" value={inputs.hsCrp} onChange={(value) => updateInput('hsCrp', value)} />
+          <InputField label="Interleukin-6" unit="pg/mL" value={inputs.il6} onChange={(value) => updateInput('il6', value)} />
+          <InputField label="COMP" unit="U/L" value={inputs.comp} onChange={(value) => updateInput('comp', value)} />
+          <InputField label="8-OHdG" unit="ng/mg" value={inputs.oxidativeStress} onChange={(value) => updateInput('oxidativeStress', value)} />
+          <InputField label="Microbiome Diversity" unit="score" value={inputs.microbiomeDiversity} onChange={(value) => updateInput('microbiomeDiversity', value)} />
+          <InputField label="Genetic Risk Percentile" unit="%" value={inputs.geneticPercentile} onChange={(value) => updateInput('geneticPercentile', value)} />
+          <InputField label="Imaging Severity" unit="0-100" value={inputs.imagingSeverity} onChange={(value) => updateInput('imagingSeverity', value)} />
+          <InputField label="Symptom Severity" unit="0-100" value={inputs.symptomSeverity} onChange={(value) => updateInput('symptomSeverity', value)} />
+          <InputField label="Mobility Score" unit="0-100" value={inputs.mobilityScore} onChange={(value) => updateInput('mobilityScore', value)} />
+          <InputField label="Treatment Adherence" unit="%" value={inputs.treatmentAdherence} onChange={(value) => updateInput('treatmentAdherence', value)} />
+        </div>
+      </section>
       <div className="grid gap-6 xl:grid-cols-2">
         <div className="card p-6">
           <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-slate-100 p-3 text-cyan">
+            <div className="rounded-xl bg-slate-100 p-3 text-violet">
               <CalendarClock className="h-6 w-6" />
             </div>
             <div>
@@ -105,7 +176,7 @@ export function ComprehensiveTesting() {
         </div>
         <div className="card p-6">
           <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-slate-100 p-3 text-cyan">
+            <div className="rounded-xl bg-slate-100 p-3 text-violet">
               <Home className="h-6 w-6" />
             </div>
             <div>
@@ -179,5 +250,22 @@ export function ComprehensiveTesting() {
       </section>
       <DisclaimerBox />
     </div>
+  );
+}
+
+function InputField({ label, unit, value, onChange }: { label: string; unit: string; value: number; onChange: (value: string) => void }) {
+  return (
+    <label className="block rounded-2xl border border-slate-200 bg-white p-4">
+      <span className="text-sm font-bold text-navy">{label}</span>
+      <div className="mt-2 flex items-center gap-2">
+        <input
+          type="number"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy outline-none focus:border-violet focus:ring-2 focus:ring-violet/10"
+        />
+        <span className="shrink-0 text-xs font-bold text-slate-500">{unit}</span>
+      </div>
+    </label>
   );
 }
