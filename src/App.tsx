@@ -12,7 +12,7 @@ import { OAChanceScore } from './pages/OAChanceScore';
 import { TestHistory } from './pages/TestHistory';
 import { TreatmentEffectiveness } from './pages/TreatmentEffectiveness';
 import { TreatmentPlan } from './pages/TreatmentPlan';
-import type { PageId } from './types';
+import type { PageId, RiskAnalysisResult } from './types';
 
 const pageLabels: Record<PageId, string> = {
   dashboard: 'Dashboard',
@@ -30,11 +30,17 @@ const pageLabels: Record<PageId, string> = {
 
 function App() {
   const [activePage, setActivePage] = useState<PageId>('dashboard');
+  const [riskAnalysis, setRiskAnalysis] = useState<RiskAnalysisResult | null>(null);
+
+  const handleAnalysisComplete = (result: RiskAnalysisResult) => {
+    setRiskAnalysis(result);
+    setActivePage('score');
+  };
 
   const renderPage = () => {
     switch (activePage) {
-      case 'testing': return <ComprehensiveTesting />;
-      case 'score': return <OAChanceScore />;
+      case 'testing': return <ComprehensiveTesting onAnalysisComplete={handleAnalysisComplete} />;
+      case 'score': return <OAChanceScore analysis={riskAnalysis} onEditInputs={() => setActivePage('testing')} />;
       case 'history': return <TestHistory />;
       case 'plan': return <TreatmentPlan />;
       case 'effectiveness': return <TreatmentEffectiveness />;

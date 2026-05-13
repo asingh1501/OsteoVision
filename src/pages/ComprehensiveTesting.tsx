@@ -5,11 +5,12 @@ import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { RiskBadge } from '../components/RiskBadge';
 import { biomarkers, imagingResults } from '../data/mockData';
+import type { AnalysisInputs, RiskAnalysisResult } from '../types';
 import { calculateOAChanceScore, type OAFactors } from '../utils/calculateOAChanceScore';
 
 const groups = ['Blood Panel', 'Stool Analysis', 'Urine Test', 'Saliva / Genetic Test'] as const;
 
-export function ComprehensiveTesting() {
+export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplete: (result: RiskAnalysisResult) => void }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [testingDate, setTestingDate] = useState('2026-05-20');
   const [testingType, setTestingType] = useState('Comprehensive OA panel');
@@ -18,8 +19,7 @@ export function ComprehensiveTesting() {
   const [uploadedReports, setUploadedReports] = useState<string[]>([]);
   const [scheduledTests, setScheduledTests] = useState<string[]>([]);
   const [homeVisits, setHomeVisits] = useState<string[]>([]);
-  const [analysis, setAnalysis] = useState<{ score: number; category: string; drivers: string[] } | null>(null);
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<AnalysisInputs>({
     vitaminD: 29,
     omega3: 5.8,
     hsCrp: 3.4,
@@ -68,7 +68,20 @@ export function ComprehensiveTesting() {
       inputs.oxidativeStress > 8 ? '8-OHdG oxidative stress marker elevated' : '',
       inputs.imagingSeverity > 40 ? 'Imaging severity input above baseline' : '',
     ].filter(Boolean);
-    setAnalysis({ score: result.score, category: result.category, drivers });
+    onAnalysisComplete({
+      score: result.score,
+      category: result.category,
+      drivers,
+      inputs,
+      factorScores: {
+        imagingSeverity: inputs.imagingSeverity,
+        symptomMobilityScore,
+        inflammationScore,
+        geneticRisk: inputs.geneticPercentile,
+        nutrientDeficiencyScore,
+        treatmentAdherence: inputs.treatmentAdherence,
+      },
+    });
   };
 
   return (
@@ -91,7 +104,7 @@ export function ComprehensiveTesting() {
           <Button onClick={runAnalysis}><PlayCircle className="h-4 w-4" /> Run Risk Analysis</Button>
         </div>
       </div>
-      {(uploadedReports.length > 0 || analysis) && (
+      {uploadedReports.length > 0 && (
         <div className="grid gap-4 xl:grid-cols-2">
           {uploadedReports.length > 0 && (
             <div className="card p-5">
@@ -105,21 +118,6 @@ export function ComprehensiveTesting() {
               </div>
             </div>
           )}
-          {analysis && (
-            <div className="card p-5">
-              <h3 className="text-lg font-black text-navy">Risk Analysis Result</h3>
-              <div className="mt-3 rounded-2xl border border-violet/15 bg-lavender p-4">
-                <p className="text-3xl font-black text-navy">{analysis.score}%</p>
-                <p className="mt-1 text-sm font-bold text-violet">{analysis.category}</p>
-                <p className="mt-3 text-sm leading-6 text-slate-700">
-                  Calculated from the values entered below using the prototype weighted model. This is decision-support only.
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {analysis.drivers.map((driver) => <span key={driver} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-700">{driver}</span>)}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       )}
       <section className="card p-6">
@@ -128,7 +126,7 @@ export function ComprehensiveTesting() {
             <h2 className="text-xl font-black text-navy">Analysis Inputs</h2>
             <p className="mt-2 text-sm leading-6 text-slate-600">Enter patient-reported symptoms, lab values, genetics, imaging severity, mobility, and adherence before running the prototype OA Chance Score model.</p>
           </div>
-          <Button onClick={runAnalysis}><PlayCircle /> Calculate From Inputs</Button>
+          <Button onClick={runAnalysis}><PlayCircle /> Continue to Risk Analysis</Button>
         </div>
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <InputField label="25(OH) Vitamin D" unit="ng/mL" value={inputs.vitaminD} onChange={(value) => updateInput('vitaminD', value)} />

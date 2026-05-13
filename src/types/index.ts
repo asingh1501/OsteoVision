@@ -94,3 +94,33 @@ export interface MedicationInteraction {
   genes: string[];
   concern: string;
 }
+
+export interface AnalysisInputs {
+  vitaminD: number;
+  omega3: number;
+  hsCrp: number;
+  il6: number;
+  comp: number;
+  oxidativeStress: number;
+  microbiomeDiversity: number;
+  geneticPercentile: number;
+  imagingSeverity: number;
+  symptomSeverity: number;
+  mobilityScore: number;
+  treatmentAdherence: number;
+}
+
+export interface RiskAnalysisResult {
+  score: number;
+  category: RiskCategory;
+  drivers: string[];
+  inputs: AnalysisInputs;
+  factorScores: {
+    imagingSeverity: number;
+    symptomMobilityScore: number;
+    inflammationScore: number;
+    geneticRisk: number;
+    nutrientDeficiencyScore: number;
+    treatmentAdherence: number;
+  };
+}
