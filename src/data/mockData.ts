@@ -23,13 +23,23 @@ export const biomarkers: Biomarker[] = [
   { name: 'RBC Magnesium', value: 5.2, unit: 'mg/dL', idealRange: '5.5-6.5', status: 'moderate', group: 'Blood Panel', explanation: 'Magnesium supports muscle function, mobility, and inflammatory balance.' },
   { name: 'Omega-3 Index', value: 5.8, unit: '%', idealRange: '8-12', status: 'moderate', group: 'Blood Panel', explanation: 'Omega-3 status helps contextualize inflammation and joint-friendly nutrition.' },
   { name: 'hs-CRP', value: 3.4, unit: 'mg/L', idealRange: '<1.0', status: 'high risk', group: 'Blood Panel', explanation: 'A systemic inflammation marker that can help identify concerning trends.' },
+  { name: 'ESR', value: 24, unit: 'mm/hr', idealRange: '<20', status: 'moderate', group: 'Blood Panel', explanation: 'Erythrocyte sedimentation rate adds context for systemic inflammatory activity.' },
   { name: 'Interleukin-6', value: 4.9, unit: 'pg/mL', idealRange: '<2.0', status: 'high risk', group: 'Blood Panel', explanation: 'IL-6 is associated with inflammatory signaling relevant to joint symptoms.' },
+  { name: 'TNF-alpha', value: 8.1, unit: 'pg/mL', idealRange: '<5.0', status: 'moderate', group: 'Blood Panel', explanation: 'TNF-alpha helps contextualize inflammatory pathways involved in joint discomfort.' },
   { name: 'COMP', value: 13.2, unit: 'U/L', idealRange: '<12', status: 'moderate', group: 'Blood Panel', explanation: 'Cartilage oligomeric matrix protein can support cartilage turnover monitoring.' },
+  { name: 'Leptin', value: 22, unit: 'ng/mL', idealRange: 'contextual', status: 'moderate', group: 'Blood Panel', explanation: 'Leptin can reflect metabolic-inflammatory load relevant to joint stress.' },
+  { name: 'Adiponectin', value: 6.4, unit: 'ug/mL', idealRange: '>8', status: 'low', group: 'Blood Panel', explanation: 'Adiponectin can help frame metabolic health and inflammatory balance.' },
+  { name: 'Fasting Insulin', value: 12.8, unit: 'uIU/mL', idealRange: '<8', status: 'moderate', group: 'Blood Panel', explanation: 'Insulin resistance patterns can influence inflammation, weight, and mobility planning.' },
   { name: 'Microbiome Diversity', value: 62, unit: 'score', idealRange: '>75', status: 'moderate', group: 'Stool Analysis', explanation: 'Gut diversity supports gut-joint axis monitoring and inflammation context.' },
   { name: 'Stool Butyrate', value: 7.4, unit: 'mmol/kg', idealRange: '>10', status: 'low', group: 'Stool Analysis', explanation: 'Butyrate is a short-chain fatty acid associated with gut barrier and immune balance.' },
+  { name: 'Fecal Calprotectin', value: 74, unit: 'ug/g', idealRange: '<50', status: 'moderate', group: 'Stool Analysis', explanation: 'Calprotectin can add context for gut inflammation that may affect systemic inflammatory load.' },
+  { name: 'Zonulin', value: 48, unit: 'ng/mL', idealRange: '<35', status: 'moderate', group: 'Stool Analysis', explanation: 'Zonulin is used as a gut barrier context marker in some wellness panels.' },
   { name: '8-OHdG', value: 11.8, unit: 'ng/mg', idealRange: '<8', status: 'high risk', group: 'Urine Test', explanation: 'A marker of oxidative stress and DNA damage that may track inflammatory burden.' },
+  { name: 'Urinary CTX-II', value: 310, unit: 'ng/mmol', idealRange: '<250', status: 'moderate', group: 'Urine Test', explanation: 'CTX-II is used in research contexts for cartilage degradation trend awareness.' },
+  { name: 'F2-Isoprostane', value: 1.9, unit: 'ng/mg', idealRange: '<1.5', status: 'moderate', group: 'Urine Test', explanation: 'F2-isoprostane supports oxidative stress monitoring alongside symptom changes.' },
   { name: 'Polygenic Risk Score for OA', value: 68, unit: 'percentile', idealRange: '<50', status: 'moderate', group: 'Saliva / Genetic Test', explanation: 'Genetic predisposition helps personalize risk awareness, not diagnosis.' },
   { name: 'AM Cortisol', value: 19.4, unit: 'ug/dL', idealRange: '6-18', status: 'moderate', group: 'Saliva / Genetic Test', explanation: 'Stress physiology can influence sleep, inflammation, pain, and recovery patterns.' },
+  { name: 'Collagen / Cartilage Variant Risk', value: 61, unit: 'percentile', idealRange: '<50', status: 'moderate', group: 'Saliva / Genetic Test', explanation: 'Prototype genetics input for connective tissue and cartilage risk awareness.' },
 ];
 
 export const imagingResults: ImagingResult[] = [
@@ -38,6 +48,9 @@ export const imagingResults: ImagingResult[] = [
   { name: 'Cartilage thinning', value: 'Focal thinning', status: 'moderate', explanation: 'Monitored alongside symptoms and mobility trends.' },
   { name: 'Bone marrow lesion indicator', value: 'Not detected', status: 'optimal', explanation: 'No concerning lesion indicator in latest summary.' },
   { name: 'Effusion/inflammation indicator', value: 'Trace effusion', status: 'moderate', explanation: 'May align with recent symptom flare patterns.' },
+  { name: 'Osteophyte indicator', value: 'Small marginal osteophyte', status: 'moderate', explanation: 'Bony change indicator used for structural trend discussions.' },
+  { name: 'Synovitis indicator', value: 'Mild signal', status: 'moderate', explanation: 'Can help contextualize inflammatory symptoms and swelling patterns.' },
+  { name: 'Alignment / load pattern', value: 'Mild varus loading', status: 'moderate', explanation: 'Load distribution can guide physical therapy and orthotics discussion.' },
 ];
 
 export const initialTreatments: TreatmentItem[] = [

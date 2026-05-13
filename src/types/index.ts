@@ -97,14 +97,31 @@ export interface MedicationInteraction {
 
 export interface AnalysisInputs {
   vitaminD: number;
+  rbcMagnesium: number;
   omega3: number;
   hsCrp: number;
+  esr: number;
   il6: number;
+  tnfAlpha: number;
   comp: number;
+  leptin: number;
+  adiponectin: number;
+  fastingInsulin: number;
   oxidativeStress: number;
+  urinaryCtxII: number;
+  f2Isoprostane: number;
   microbiomeDiversity: number;
+  stoolButyrate: number;
+  calprotectin: number;
+  zonulin: number;
   geneticPercentile: number;
+  amCortisol: number;
+  collagenRisk: number;
   imagingSeverity: number;
+  cartilageThickness: number;
+  jointSpaceNarrowing: number;
+  effusionSeverity: number;
+  boneMarrowLesion: number;
   symptomSeverity: number;
   mobilityScore: number;
   treatmentAdherence: number;

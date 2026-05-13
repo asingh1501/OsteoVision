@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle2, ClipboardList, PlayCircle } from 'lucide-react';
+import { Activity, ArrowLeft, CheckCircle2, ClipboardCheck, ClipboardList, Dna, Droplets, FlaskConical, Footprints, PlayCircle, ScanLine } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
@@ -11,14 +11,31 @@ import { calculateOAChanceScore, type OAFactors } from '../utils/calculateOAChan
 const colors = ['#6d28d9', '#be185d', '#7c3aed', '#db2777', '#8b5cf6', '#c026d3'];
 const inputLabels: Record<keyof AnalysisInputs, string> = {
   vitaminD: '25(OH) Vitamin D',
+  rbcMagnesium: 'RBC Magnesium',
   omega3: 'Omega-3 Index',
   hsCrp: 'hs-CRP',
+  esr: 'ESR',
   il6: 'Interleukin-6',
+  tnfAlpha: 'TNF-alpha',
   comp: 'COMP',
+  leptin: 'Leptin',
+  adiponectin: 'Adiponectin',
+  fastingInsulin: 'Fasting Insulin',
   oxidativeStress: '8-OHdG',
+  urinaryCtxII: 'Urinary CTX-II',
+  f2Isoprostane: 'F2-Isoprostane',
   microbiomeDiversity: 'Microbiome Diversity',
+  stoolButyrate: 'Stool Butyrate',
+  calprotectin: 'Fecal Calprotectin',
+  zonulin: 'Zonulin',
   geneticPercentile: 'Genetic Risk Percentile',
+  amCortisol: 'AM Cortisol',
+  collagenRisk: 'Collagen / Cartilage Variant Risk',
   imagingSeverity: 'Imaging Severity',
+  cartilageThickness: 'Cartilage Thickness',
+  jointSpaceNarrowing: 'Joint Space Narrowing',
+  effusionSeverity: 'Effusion / Synovitis Severity',
+  boneMarrowLesion: 'Bone Marrow Lesion Indicator',
   symptomSeverity: 'Symptom Severity',
   mobilityScore: 'Mobility Score',
   treatmentAdherence: 'Treatment Adherence',
@@ -27,14 +44,31 @@ type AnalysisInputForm = { [Key in keyof AnalysisInputs]: number | '' };
 
 const emptyInputs: AnalysisInputForm = {
   vitaminD: '',
+  rbcMagnesium: '',
   omega3: '',
   hsCrp: '',
+  esr: '',
   il6: '',
+  tnfAlpha: '',
   comp: '',
+  leptin: '',
+  adiponectin: '',
+  fastingInsulin: '',
   oxidativeStress: '',
+  urinaryCtxII: '',
+  f2Isoprostane: '',
   microbiomeDiversity: '',
+  stoolButyrate: '',
+  calprotectin: '',
+  zonulin: '',
   geneticPercentile: '',
+  amCortisol: '',
+  collagenRisk: '',
   imagingSeverity: '',
+  cartilageThickness: '',
+  jointSpaceNarrowing: '',
+  effusionSeverity: '',
+  boneMarrowLesion: '',
   symptomSeverity: '',
   mobilityScore: '',
   treatmentAdherence: '',
@@ -57,25 +91,56 @@ export function OAChanceScore({ analysis, onAnalysisComplete, onEditInputs }: { 
       return;
     }
     const completeInputs = inputs as AnalysisInputs;
-    const inflammationScore = Math.min(100, Math.round((completeInputs.hsCrp / 6) * 35 + (completeInputs.il6 / 8) * 35 + (completeInputs.comp / 18) * 15 + (completeInputs.oxidativeStress / 18) * 15));
-    const nutrientDeficiencyScore = Math.min(100, Math.round((completeInputs.vitaminD < 40 ? (40 - completeInputs.vitaminD) * 2 : 0) + (completeInputs.omega3 < 8 ? (8 - completeInputs.omega3) * 10 : 0) + (completeInputs.microbiomeDiversity < 75 ? (75 - completeInputs.microbiomeDiversity) : 0)));
+    const inflammationScore = Math.min(100, Math.round(
+      (completeInputs.hsCrp / 6) * 18 +
+      (completeInputs.esr / 40) * 10 +
+      (completeInputs.il6 / 8) * 16 +
+      (completeInputs.tnfAlpha / 12) * 12 +
+      (completeInputs.comp / 18) * 12 +
+      (completeInputs.oxidativeStress / 18) * 10 +
+      (completeInputs.urinaryCtxII / 500) * 10 +
+      (completeInputs.f2Isoprostane / 3) * 6 +
+      (completeInputs.calprotectin / 150) * 6,
+    ));
+    const nutrientDeficiencyScore = Math.min(100, Math.round(
+      (completeInputs.vitaminD < 40 ? (40 - completeInputs.vitaminD) * 1.6 : 0) +
+      (completeInputs.rbcMagnesium < 5.5 ? (5.5 - completeInputs.rbcMagnesium) * 12 : 0) +
+      (completeInputs.omega3 < 8 ? (8 - completeInputs.omega3) * 8 : 0) +
+      (completeInputs.microbiomeDiversity < 75 ? (75 - completeInputs.microbiomeDiversity) * 0.7 : 0) +
+      (completeInputs.stoolButyrate < 10 ? (10 - completeInputs.stoolButyrate) * 3 : 0) +
+      (completeInputs.adiponectin < 8 ? (8 - completeInputs.adiponectin) * 2 : 0) +
+      (completeInputs.fastingInsulin > 8 ? (completeInputs.fastingInsulin - 8) * 2 : 0),
+    ));
+    const imagingComposite = Math.min(100, Math.round(
+      completeInputs.imagingSeverity * 0.4 +
+      (100 - completeInputs.cartilageThickness) * 0.2 +
+      completeInputs.jointSpaceNarrowing * 0.2 +
+      completeInputs.effusionSeverity * 0.1 +
+      completeInputs.boneMarrowLesion * 0.1,
+    ));
+    const geneticComposite = Math.min(100, Math.round(completeInputs.geneticPercentile * 0.65 + completeInputs.collagenRisk * 0.25 + Math.min(100, completeInputs.amCortisol * 4) * 0.1));
     const symptomMobilityScore = Math.min(100, Math.round(completeInputs.symptomSeverity * 0.65 + (100 - completeInputs.mobilityScore) * 0.35));
     const factors: OAFactors = {
-      imagingSeverity: completeInputs.imagingSeverity,
+      imagingSeverity: imagingComposite,
       symptomSeverity: symptomMobilityScore,
       inflammationScore,
-      geneticRisk: completeInputs.geneticPercentile,
+      geneticRisk: geneticComposite,
       nutrientDeficiencyScore,
       treatmentAdherence: completeInputs.treatmentAdherence,
     };
     const result = calculateOAChanceScore(factors);
     const drivers = [
       completeInputs.hsCrp > 3 ? 'hs-CRP above preferred range' : '',
+      completeInputs.esr > 20 ? 'ESR inflammatory trend elevated' : '',
       completeInputs.il6 > 2 ? 'IL-6 inflammation signal' : '',
+      completeInputs.tnfAlpha > 5 ? 'TNF-alpha inflammatory signal' : '',
       completeInputs.vitaminD < 40 ? 'Vitamin D below target' : '',
       completeInputs.omega3 < 8 ? 'Omega-3 Index below target' : '',
       completeInputs.oxidativeStress > 8 ? '8-OHdG oxidative stress marker elevated' : '',
-      completeInputs.imagingSeverity > 40 ? 'Imaging severity input above baseline' : '',
+      completeInputs.urinaryCtxII > 250 ? 'Urinary CTX-II cartilage turnover signal' : '',
+      completeInputs.microbiomeDiversity < 75 ? 'Microbiome diversity below target' : '',
+      completeInputs.stoolButyrate < 10 ? 'Stool butyrate below target' : '',
+      imagingComposite > 40 ? 'Imaging severity composite above baseline' : '',
     ].filter(Boolean);
     onAnalysisComplete({
       score: result.score,
@@ -83,10 +148,10 @@ export function OAChanceScore({ analysis, onAnalysisComplete, onEditInputs }: { 
       drivers,
       inputs: completeInputs,
       factorScores: {
-        imagingSeverity: completeInputs.imagingSeverity,
+        imagingSeverity: imagingComposite,
         symptomMobilityScore,
         inflammationScore,
-        geneticRisk: completeInputs.geneticPercentile,
+        geneticRisk: geneticComposite,
         nutrientDeficiencyScore,
         treatmentAdherence: completeInputs.treatmentAdherence,
       },
@@ -219,33 +284,50 @@ function AnalysisInputPanel({
       </div>
       {inputError && <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm font-semibold text-rose-700">{inputError}</div>}
       <div className="mt-5 space-y-5">
-        <InputGroup title="Blood Panel" description="Inflammation, cartilage turnover, and nutrient markers from blood testing.">
+        <InputGroup title="Blood Panel" description="Inflammation, cartilage turnover, metabolic, and nutrient markers from blood testing." icon={<FlaskConical />} accent="violet">
           <InputField label="25(OH) Vitamin D" unit="ng/mL" value={inputs.vitaminD} onChange={(value) => onChange('vitaminD', value)} />
+          <InputField label="RBC Magnesium" unit="mg/dL" value={inputs.rbcMagnesium} onChange={(value) => onChange('rbcMagnesium', value)} />
           <InputField label="Omega-3 Index" unit="%" value={inputs.omega3} onChange={(value) => onChange('omega3', value)} />
           <InputField label="hs-CRP" unit="mg/L" value={inputs.hsCrp} onChange={(value) => onChange('hsCrp', value)} />
+          <InputField label="ESR" unit="mm/hr" value={inputs.esr} onChange={(value) => onChange('esr', value)} />
           <InputField label="Interleukin-6" unit="pg/mL" value={inputs.il6} onChange={(value) => onChange('il6', value)} />
+          <InputField label="TNF-alpha" unit="pg/mL" value={inputs.tnfAlpha} onChange={(value) => onChange('tnfAlpha', value)} />
           <InputField label="COMP" unit="U/L" value={inputs.comp} onChange={(value) => onChange('comp', value)} />
+          <InputField label="Leptin" unit="ng/mL" value={inputs.leptin} onChange={(value) => onChange('leptin', value)} />
+          <InputField label="Adiponectin" unit="ug/mL" value={inputs.adiponectin} onChange={(value) => onChange('adiponectin', value)} />
+          <InputField label="Fasting Insulin" unit="uIU/mL" value={inputs.fastingInsulin} onChange={(value) => onChange('fastingInsulin', value)} />
         </InputGroup>
         <div className="grid gap-5 xl:grid-cols-3">
-          <InputGroup title="Stool Analysis" description="Gut-joint axis and microbiome context.">
+          <InputGroup title="Stool Analysis" description="Gut-joint axis, microbiome context, and gut inflammation markers." icon={<Activity />} accent="pink">
             <InputField label="Microbiome Diversity" unit="score" value={inputs.microbiomeDiversity} onChange={(value) => onChange('microbiomeDiversity', value)} />
+            <InputField label="Stool Butyrate" unit="mmol/kg" value={inputs.stoolButyrate} onChange={(value) => onChange('stoolButyrate', value)} />
+            <InputField label="Fecal Calprotectin" unit="ug/g" value={inputs.calprotectin} onChange={(value) => onChange('calprotectin', value)} />
+            <InputField label="Zonulin" unit="ng/mL" value={inputs.zonulin} onChange={(value) => onChange('zonulin', value)} />
           </InputGroup>
-          <InputGroup title="Urine Test" description="Oxidative stress marker from urine testing.">
+          <InputGroup title="Urine Test" description="Oxidative stress and cartilage turnover trend markers." icon={<Droplets />} accent="indigo">
             <InputField label="8-OHdG" unit="ng/mg" value={inputs.oxidativeStress} onChange={(value) => onChange('oxidativeStress', value)} />
+            <InputField label="Urinary CTX-II" unit="ng/mmol" value={inputs.urinaryCtxII} onChange={(value) => onChange('urinaryCtxII', value)} />
+            <InputField label="F2-Isoprostane" unit="ng/mg" value={inputs.f2Isoprostane} onChange={(value) => onChange('f2Isoprostane', value)} />
           </InputGroup>
-          <InputGroup title="Saliva / Genetic Test" description="Genetic predisposition and risk awareness input.">
+          <InputGroup title="Saliva / Genetic Test" description="Genetic predisposition and stress physiology context." icon={<Dna />} accent="fuchsia">
             <InputField label="Genetic Risk Percentile" unit="%" value={inputs.geneticPercentile} onChange={(value) => onChange('geneticPercentile', value)} />
+            <InputField label="AM Cortisol" unit="ug/dL" value={inputs.amCortisol} onChange={(value) => onChange('amCortisol', value)} />
+            <InputField label="Collagen Variant Risk" unit="%" value={inputs.collagenRisk} onChange={(value) => onChange('collagenRisk', value)} />
           </InputGroup>
         </div>
-        <InputGroup title="Full Body MRI / X-ray Summary" description="Condensed imaging severity input from radiology, MRI, X-ray, or uploaded report summary.">
+        <InputGroup title="Full Body MRI / X-ray Summary" description="Condensed imaging inputs from radiology, MRI, X-ray, or uploaded report summary." icon={<ScanLine />} accent="violet">
           <InputField label="Imaging Severity" unit="0-100" value={inputs.imagingSeverity} onChange={(value) => onChange('imagingSeverity', value)} />
+          <InputField label="Cartilage Thickness" unit="0-100" value={inputs.cartilageThickness} onChange={(value) => onChange('cartilageThickness', value)} />
+          <InputField label="Joint Space Narrowing" unit="0-100" value={inputs.jointSpaceNarrowing} onChange={(value) => onChange('jointSpaceNarrowing', value)} />
+          <InputField label="Effusion / Synovitis" unit="0-100" value={inputs.effusionSeverity} onChange={(value) => onChange('effusionSeverity', value)} />
+          <InputField label="Bone Marrow Lesion" unit="0-100" value={inputs.boneMarrowLesion} onChange={(value) => onChange('boneMarrowLesion', value)} />
         </InputGroup>
         <div className="grid gap-5 xl:grid-cols-2">
-          <InputGroup title="Symptoms And Mobility" description="Patient-reported symptoms and functional tracking.">
+          <InputGroup title="Symptoms And Mobility" description="Patient-reported symptoms and functional tracking." icon={<Footprints />} accent="pink">
             <InputField label="Symptom Severity" unit="0-100" value={inputs.symptomSeverity} onChange={(value) => onChange('symptomSeverity', value)} />
             <InputField label="Mobility Score" unit="0-100" value={inputs.mobilityScore} onChange={(value) => onChange('mobilityScore', value)} />
           </InputGroup>
-          <InputGroup title="Treatment Follow-Through" description="Adherence to the active clinician-reviewed care plan.">
+          <InputGroup title="Treatment Follow-Through" description="Adherence to the active clinician-reviewed care plan." icon={<ClipboardCheck />} accent="indigo">
             <InputField label="Treatment Adherence" unit="%" value={inputs.treatmentAdherence} onChange={(value) => onChange('treatmentAdherence', value)} />
           </InputGroup>
         </div>
@@ -254,12 +336,22 @@ function AnalysisInputPanel({
   );
 }
 
-function InputGroup({ title, description, children }: { title: string; description: string; children: ReactNode }) {
+function InputGroup({ title, description, icon, accent, children }: { title: string; description: string; icon: ReactNode; accent: 'violet' | 'pink' | 'indigo' | 'fuchsia'; children: ReactNode }) {
+  const styles = {
+    violet: 'border-violet/20 bg-lavender text-violet',
+    pink: 'border-pink-200 bg-pink-50 text-pink-700',
+    indigo: 'border-indigo-200 bg-indigo-50 text-indigo-700',
+    fuchsia: 'border-fuchsia-200 bg-fuchsia-50 text-fuchsia-700',
+  };
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-      <div className="mb-4">
-        <h3 className="text-base font-black text-navy">{title}</h3>
-        <p className="mt-1 text-sm text-slate-600">{description}</p>
+      <div className="mb-4 flex items-start gap-3">
+        <div className={`rounded-xl border p-2.5 [&_svg]:h-5 [&_svg]:w-5 ${styles[accent]}`}>{icon}</div>
+        <div>
+          <h3 className="text-base font-black text-navy">{title}</h3>
+          <p className="mt-1 text-sm text-slate-600">{description}</p>
+        </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{children}</div>
     </div>
