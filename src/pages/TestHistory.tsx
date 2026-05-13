@@ -42,7 +42,7 @@ export function TestHistory() {
             {[baseline, current].map((item) => (
               <div key={item.id} className="rounded-2xl bg-slate-50 p-4">
                 <p className="text-sm font-bold text-violet">{item.date}</p>
-                <p className="mt-1 text-3xl font-black text-navy">{item.score}%</p>
+                <p className="text-safe mt-1 text-3xl font-black text-navy">{item.score}%</p>
                 <p className="text-sm text-slate-600">{item.stage}</p>
               </div>
             ))}
@@ -61,7 +61,7 @@ export function TestHistory() {
               <h3 className="font-bold text-navy">{name}</h3>
               <RiskBadge status={status} />
             </div>
-            <p className="mt-3 text-2xl font-black text-ink">{value}</p>
+            <p className="text-safe mt-3 text-2xl font-black text-ink">{value}</p>
           </div>
         ))}
       </div>

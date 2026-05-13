@@ -10,7 +10,7 @@ export function MembershipPlans() {
   return (
     <div className="space-y-6">
       <div className="gradient-panel rounded-2xl p-8">
-        <h1 className="text-4xl font-black">OsteoVision Membership</h1>
+        <h1 className="text-safe text-3xl font-black md:text-4xl">OsteoVision Membership</h1>
         <p className="mt-3 max-w-3xl text-slate-600">Complete access to connected osteoarthritis monitoring, personalized care planning, and clinician-ready insights.</p>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">

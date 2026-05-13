@@ -19,7 +19,7 @@ export function Dashboard({ onNavigate, analysis }: { onNavigate: (page: PageId)
   return (
     <div className="space-y-6">
       <div className="gradient-panel rounded-2xl p-6 md:p-8">
-        <h1 className="text-3xl font-black">Welcome back to OsteoVision</h1>
+        <h1 className="text-safe text-3xl font-black">Welcome back to OsteoVision</h1>
         <p className="mt-2 max-w-3xl text-slate-600">Tracking {patientProfile.primaryJoint} risk factors, symptoms, diagnostics, treatment adherence, and clinician-ready insights for {patientProfile.name}.</p>
       </div>
 

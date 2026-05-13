@@ -27,7 +27,7 @@ export function TreatmentEffectiveness() {
       <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
         <div className="gradient-panel rounded-2xl p-6">
           <p className="font-bold text-violet">Treatment impact summary</p>
-          <h1 className="mt-3 text-4xl font-black">{rating}</h1>
+          <h1 className="text-safe mt-3 text-3xl font-black md:text-4xl">{rating}</h1>
           <p className="mt-4 text-slate-600">OsteoVision compares diagnostic markers and symptom patterns over time to help patients and clinicians understand whether the current care plan is improving, stabilizing, or worsening osteoarthritis-related risk.</p>
         </div>
         <ChartCard title="OA Chance Score Trend">
@@ -54,7 +54,7 @@ export function TreatmentEffectiveness() {
               <h3 className="font-bold text-navy">{name}</h3>
               <RiskBadge status={good ? 'improved' : 'worsened'} />
             </div>
-            <p className="mt-3 text-2xl font-black text-ink">{value}</p>
+            <p className="text-safe mt-3 text-2xl font-black text-ink">{value}</p>
           </div>
         ))}
       </div>

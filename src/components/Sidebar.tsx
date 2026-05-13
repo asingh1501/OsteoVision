@@ -1,7 +1,7 @@
-import { BarChart3, BookOpen, CalendarCheck, ClipboardList, Dna, FileText, HeartPulse, History, LayoutDashboard, MapPin, Stethoscope } from 'lucide-react';
+import { Activity, BarChart3, BookOpen, CalendarCheck, ClipboardList, Dna, FileText, HeartPulse, History, LayoutDashboard, MapPin, Stethoscope } from 'lucide-react';
 import type { NavItem, PageId } from '../types';
 
-const navItems: NavItem[] = [
+const baseNavItems: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'testing', label: 'Comprehensive Testing', icon: ClipboardList },
   { id: 'history', label: 'Test History', icon: History },
@@ -14,7 +14,16 @@ const navItems: NavItem[] = [
   { id: 'clinician', label: 'Clinician Summary', icon: FileText },
 ];
 
-export function Sidebar({ activePage, onNavigate }: { activePage: PageId; onNavigate: (page: PageId) => void }) {
+export function Sidebar({ activePage, onNavigate, showScore }: { activePage: PageId; onNavigate: (page: PageId) => void; showScore: boolean }) {
+  const navItems = showScore
+    ? [
+        baseNavItems[0],
+        baseNavItems[1],
+        { id: 'score' as PageId, label: 'OA Chance Score', icon: Activity },
+        ...baseNavItems.slice(2),
+      ]
+    : baseNavItems;
+
   return (
     <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-slate-200 bg-white px-4 py-6 lg:block">
       <div className="mb-8 flex items-center gap-3 px-2">

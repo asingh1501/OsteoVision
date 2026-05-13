@@ -40,6 +40,37 @@ const inputLabels: Record<keyof AnalysisInputs, string> = {
   mobilityScore: 'Mobility Score',
   treatmentAdherence: 'Treatment Adherence',
 };
+const placeholders: Record<keyof AnalysisInputs, string> = {
+  vitaminD: '40-60',
+  rbcMagnesium: '5.5-6.5',
+  omega3: '8-12',
+  hsCrp: '<1.0',
+  esr: '<20',
+  il6: '<2.0',
+  tnfAlpha: '<5.0',
+  comp: '<12',
+  leptin: 'contextual',
+  adiponectin: '>8',
+  fastingInsulin: '<8',
+  oxidativeStress: '<8',
+  urinaryCtxII: '<250',
+  f2Isoprostane: '<1.5',
+  microbiomeDiversity: '>75',
+  stoolButyrate: '>10',
+  calprotectin: '<50',
+  zonulin: '<35',
+  geneticPercentile: '<50',
+  amCortisol: '6-18',
+  collagenRisk: '<50',
+  imagingSeverity: '0-20',
+  cartilageThickness: '80-100',
+  jointSpaceNarrowing: '0-20',
+  effusionSeverity: '0-10',
+  boneMarrowLesion: '0',
+  symptomSeverity: '0-20',
+  mobilityScore: '80-100',
+  treatmentAdherence: '80-100',
+};
 type AnalysisInputForm = { [Key in keyof AnalysisInputs]: number | '' };
 
 const emptyInputs: AnalysisInputForm = {
@@ -285,50 +316,50 @@ function AnalysisInputPanel({
       {inputError && <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm font-semibold text-rose-700">{inputError}</div>}
       <div className="mt-5 space-y-5">
         <InputGroup title="Blood Panel" description="Inflammation, cartilage turnover, metabolic, and nutrient markers from blood testing." icon={<FlaskConical />} accent="violet">
-          <InputField label="25(OH) Vitamin D" unit="ng/mL" value={inputs.vitaminD} onChange={(value) => onChange('vitaminD', value)} />
-          <InputField label="RBC Magnesium" unit="mg/dL" value={inputs.rbcMagnesium} onChange={(value) => onChange('rbcMagnesium', value)} />
-          <InputField label="Omega-3 Index" unit="%" value={inputs.omega3} onChange={(value) => onChange('omega3', value)} />
-          <InputField label="hs-CRP" unit="mg/L" value={inputs.hsCrp} onChange={(value) => onChange('hsCrp', value)} />
-          <InputField label="ESR" unit="mm/hr" value={inputs.esr} onChange={(value) => onChange('esr', value)} />
-          <InputField label="Interleukin-6" unit="pg/mL" value={inputs.il6} onChange={(value) => onChange('il6', value)} />
-          <InputField label="TNF-alpha" unit="pg/mL" value={inputs.tnfAlpha} onChange={(value) => onChange('tnfAlpha', value)} />
-          <InputField label="COMP" unit="U/L" value={inputs.comp} onChange={(value) => onChange('comp', value)} />
-          <InputField label="Leptin" unit="ng/mL" value={inputs.leptin} onChange={(value) => onChange('leptin', value)} />
-          <InputField label="Adiponectin" unit="ug/mL" value={inputs.adiponectin} onChange={(value) => onChange('adiponectin', value)} />
-          <InputField label="Fasting Insulin" unit="uIU/mL" value={inputs.fastingInsulin} onChange={(value) => onChange('fastingInsulin', value)} />
+          <InputField label="25(OH) Vitamin D" unit="ng/mL" value={inputs.vitaminD} placeholder={placeholders.vitaminD} onChange={(value) => onChange('vitaminD', value)} />
+          <InputField label="RBC Magnesium" unit="mg/dL" value={inputs.rbcMagnesium} placeholder={placeholders.rbcMagnesium} onChange={(value) => onChange('rbcMagnesium', value)} />
+          <InputField label="Omega-3 Index" unit="%" value={inputs.omega3} placeholder={placeholders.omega3} onChange={(value) => onChange('omega3', value)} />
+          <InputField label="hs-CRP" unit="mg/L" value={inputs.hsCrp} placeholder={placeholders.hsCrp} onChange={(value) => onChange('hsCrp', value)} />
+          <InputField label="ESR" unit="mm/hr" value={inputs.esr} placeholder={placeholders.esr} onChange={(value) => onChange('esr', value)} />
+          <InputField label="Interleukin-6" unit="pg/mL" value={inputs.il6} placeholder={placeholders.il6} onChange={(value) => onChange('il6', value)} />
+          <InputField label="TNF-alpha" unit="pg/mL" value={inputs.tnfAlpha} placeholder={placeholders.tnfAlpha} onChange={(value) => onChange('tnfAlpha', value)} />
+          <InputField label="COMP" unit="U/L" value={inputs.comp} placeholder={placeholders.comp} onChange={(value) => onChange('comp', value)} />
+          <InputField label="Leptin" unit="ng/mL" value={inputs.leptin} placeholder={placeholders.leptin} onChange={(value) => onChange('leptin', value)} />
+          <InputField label="Adiponectin" unit="ug/mL" value={inputs.adiponectin} placeholder={placeholders.adiponectin} onChange={(value) => onChange('adiponectin', value)} />
+          <InputField label="Fasting Insulin" unit="uIU/mL" value={inputs.fastingInsulin} placeholder={placeholders.fastingInsulin} onChange={(value) => onChange('fastingInsulin', value)} />
         </InputGroup>
         <div className="grid gap-5 xl:grid-cols-3">
           <InputGroup title="Stool Analysis" description="Gut-joint axis, microbiome context, and gut inflammation markers." icon={<Activity />} accent="pink">
-            <InputField label="Microbiome Diversity" unit="score" value={inputs.microbiomeDiversity} onChange={(value) => onChange('microbiomeDiversity', value)} />
-            <InputField label="Stool Butyrate" unit="mmol/kg" value={inputs.stoolButyrate} onChange={(value) => onChange('stoolButyrate', value)} />
-            <InputField label="Fecal Calprotectin" unit="ug/g" value={inputs.calprotectin} onChange={(value) => onChange('calprotectin', value)} />
-            <InputField label="Zonulin" unit="ng/mL" value={inputs.zonulin} onChange={(value) => onChange('zonulin', value)} />
+            <InputField label="Microbiome Diversity" unit="score" value={inputs.microbiomeDiversity} placeholder={placeholders.microbiomeDiversity} onChange={(value) => onChange('microbiomeDiversity', value)} />
+            <InputField label="Stool Butyrate" unit="mmol/kg" value={inputs.stoolButyrate} placeholder={placeholders.stoolButyrate} onChange={(value) => onChange('stoolButyrate', value)} />
+            <InputField label="Fecal Calprotectin" unit="ug/g" value={inputs.calprotectin} placeholder={placeholders.calprotectin} onChange={(value) => onChange('calprotectin', value)} />
+            <InputField label="Zonulin" unit="ng/mL" value={inputs.zonulin} placeholder={placeholders.zonulin} onChange={(value) => onChange('zonulin', value)} />
           </InputGroup>
           <InputGroup title="Urine Test" description="Oxidative stress and cartilage turnover trend markers." icon={<Droplets />} accent="indigo">
-            <InputField label="8-OHdG" unit="ng/mg" value={inputs.oxidativeStress} onChange={(value) => onChange('oxidativeStress', value)} />
-            <InputField label="Urinary CTX-II" unit="ng/mmol" value={inputs.urinaryCtxII} onChange={(value) => onChange('urinaryCtxII', value)} />
-            <InputField label="F2-Isoprostane" unit="ng/mg" value={inputs.f2Isoprostane} onChange={(value) => onChange('f2Isoprostane', value)} />
+            <InputField label="8-OHdG" unit="ng/mg" value={inputs.oxidativeStress} placeholder={placeholders.oxidativeStress} onChange={(value) => onChange('oxidativeStress', value)} />
+            <InputField label="Urinary CTX-II" unit="ng/mmol" value={inputs.urinaryCtxII} placeholder={placeholders.urinaryCtxII} onChange={(value) => onChange('urinaryCtxII', value)} />
+            <InputField label="F2-Isoprostane" unit="ng/mg" value={inputs.f2Isoprostane} placeholder={placeholders.f2Isoprostane} onChange={(value) => onChange('f2Isoprostane', value)} />
           </InputGroup>
           <InputGroup title="Saliva / Genetic Test" description="Genetic predisposition and stress physiology context." icon={<Dna />} accent="fuchsia">
-            <InputField label="Genetic Risk Percentile" unit="%" value={inputs.geneticPercentile} onChange={(value) => onChange('geneticPercentile', value)} />
-            <InputField label="AM Cortisol" unit="ug/dL" value={inputs.amCortisol} onChange={(value) => onChange('amCortisol', value)} />
-            <InputField label="Collagen Variant Risk" unit="%" value={inputs.collagenRisk} onChange={(value) => onChange('collagenRisk', value)} />
+            <InputField label="Genetic Risk Percentile" unit="%" value={inputs.geneticPercentile} placeholder={placeholders.geneticPercentile} onChange={(value) => onChange('geneticPercentile', value)} />
+            <InputField label="AM Cortisol" unit="ug/dL" value={inputs.amCortisol} placeholder={placeholders.amCortisol} onChange={(value) => onChange('amCortisol', value)} />
+            <InputField label="Collagen Variant Risk" unit="%" value={inputs.collagenRisk} placeholder={placeholders.collagenRisk} onChange={(value) => onChange('collagenRisk', value)} />
           </InputGroup>
         </div>
         <InputGroup title="Full Body MRI / X-ray Summary" description="Condensed imaging inputs from radiology, MRI, X-ray, or uploaded report summary." icon={<ScanLine />} accent="violet">
-          <InputField label="Imaging Severity" unit="0-100" value={inputs.imagingSeverity} onChange={(value) => onChange('imagingSeverity', value)} />
-          <InputField label="Cartilage Thickness" unit="0-100" value={inputs.cartilageThickness} onChange={(value) => onChange('cartilageThickness', value)} />
-          <InputField label="Joint Space Narrowing" unit="0-100" value={inputs.jointSpaceNarrowing} onChange={(value) => onChange('jointSpaceNarrowing', value)} />
-          <InputField label="Effusion / Synovitis" unit="0-100" value={inputs.effusionSeverity} onChange={(value) => onChange('effusionSeverity', value)} />
-          <InputField label="Bone Marrow Lesion" unit="0-100" value={inputs.boneMarrowLesion} onChange={(value) => onChange('boneMarrowLesion', value)} />
+          <InputField label="Imaging Severity" unit="0-100" value={inputs.imagingSeverity} placeholder={placeholders.imagingSeverity} onChange={(value) => onChange('imagingSeverity', value)} />
+          <InputField label="Cartilage Thickness" unit="0-100" value={inputs.cartilageThickness} placeholder={placeholders.cartilageThickness} onChange={(value) => onChange('cartilageThickness', value)} />
+          <InputField label="Joint Space Narrowing" unit="0-100" value={inputs.jointSpaceNarrowing} placeholder={placeholders.jointSpaceNarrowing} onChange={(value) => onChange('jointSpaceNarrowing', value)} />
+          <InputField label="Effusion / Synovitis" unit="0-100" value={inputs.effusionSeverity} placeholder={placeholders.effusionSeverity} onChange={(value) => onChange('effusionSeverity', value)} />
+          <InputField label="Bone Marrow Lesion" unit="0-100" value={inputs.boneMarrowLesion} placeholder={placeholders.boneMarrowLesion} onChange={(value) => onChange('boneMarrowLesion', value)} />
         </InputGroup>
         <div className="grid gap-5 xl:grid-cols-2">
           <InputGroup title="Symptoms And Mobility" description="Patient-reported symptoms and functional tracking." icon={<Footprints />} accent="pink">
-            <InputField label="Symptom Severity" unit="0-100" value={inputs.symptomSeverity} onChange={(value) => onChange('symptomSeverity', value)} />
-            <InputField label="Mobility Score" unit="0-100" value={inputs.mobilityScore} onChange={(value) => onChange('mobilityScore', value)} />
+            <InputField label="Symptom Severity" unit="0-100" value={inputs.symptomSeverity} placeholder={placeholders.symptomSeverity} onChange={(value) => onChange('symptomSeverity', value)} />
+            <InputField label="Mobility Score" unit="0-100" value={inputs.mobilityScore} placeholder={placeholders.mobilityScore} onChange={(value) => onChange('mobilityScore', value)} />
           </InputGroup>
           <InputGroup title="Treatment Follow-Through" description="Adherence to the active clinician-reviewed care plan." icon={<ClipboardCheck />} accent="indigo">
-            <InputField label="Treatment Adherence" unit="%" value={inputs.treatmentAdherence} onChange={(value) => onChange('treatmentAdherence', value)} />
+            <InputField label="Treatment Adherence" unit="%" value={inputs.treatmentAdherence} placeholder={placeholders.treatmentAdherence} onChange={(value) => onChange('treatmentAdherence', value)} />
           </InputGroup>
         </div>
       </div>
@@ -353,19 +384,21 @@ function InputGroup({ title, description, icon, accent, children }: { title: str
         <p className="text-safe mt-1 text-sm text-slate-600">{description}</p>
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{children}</div>
+      <div className="grid gap-4 sm:grid-cols-2">{children}</div>
     </div>
   );
 }
 
-function InputField({ label, unit, value, onChange }: { label: string; unit: string; value: number | ''; onChange: (value: string) => void }) {
+function InputField({ label, unit, value, placeholder, onChange }: { label: string; unit: string; value: number | ''; placeholder: string; onChange: (value: string) => void }) {
   return (
-    <label className="block rounded-2xl border border-slate-200 bg-white p-4">
+    <label className="block rounded-2xl border border-slate-200 bg-white p-4 text-safe">
       <span className="text-safe text-sm font-bold text-navy">{label}</span>
-      <div className="mt-2 flex items-center gap-2">
+      <div className="mt-1 text-xs font-semibold text-slate-500">Typical target: {placeholder}</div>
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
         <input
           type="number"
           value={value}
+          placeholder={placeholder}
           onChange={(event) => onChange(event.target.value)}
           className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy outline-none focus:border-violet focus:ring-2 focus:ring-violet"
         />
