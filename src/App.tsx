@@ -39,8 +39,8 @@ function App() {
 
   const renderPage = () => {
     switch (activePage) {
-      case 'testing': return <ComprehensiveTesting onAnalysisComplete={handleAnalysisComplete} />;
-      case 'score': return <OAChanceScore analysis={riskAnalysis} onEditInputs={() => setActivePage('testing')} />;
+      case 'testing': return <ComprehensiveTesting onStartAnalysis={() => setActivePage('score')} />;
+      case 'score': return <OAChanceScore analysis={riskAnalysis} onAnalysisComplete={handleAnalysisComplete} onEditInputs={() => setActivePage('testing')} />;
       case 'history': return <TestHistory />;
       case 'plan': return <TreatmentPlan analysis={riskAnalysis} />;
       case 'effectiveness': return <TreatmentEffectiveness />;

@@ -5,27 +5,10 @@ import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { RiskBadge } from '../components/RiskBadge';
 import { biomarkers, imagingResults } from '../data/mockData';
-import type { AnalysisInputs, RiskAnalysisResult } from '../types';
-import { calculateOAChanceScore, type OAFactors } from '../utils/calculateOAChanceScore';
 
 const groups = ['Blood Panel', 'Stool Analysis', 'Urine Test', 'Saliva / Genetic Test'] as const;
-const inputLabels: Record<keyof AnalysisInputs, string> = {
-  vitaminD: '25(OH) Vitamin D',
-  omega3: 'Omega-3 Index',
-  hsCrp: 'hs-CRP',
-  il6: 'Interleukin-6',
-  comp: 'COMP',
-  oxidativeStress: '8-OHdG',
-  microbiomeDiversity: 'Microbiome Diversity',
-  geneticPercentile: 'Genetic Risk Percentile',
-  imagingSeverity: 'Imaging Severity',
-  symptomSeverity: 'Symptom Severity',
-  mobilityScore: 'Mobility Score',
-  treatmentAdherence: 'Treatment Adherence',
-};
-type AnalysisInputForm = { [Key in keyof AnalysisInputs]: number | '' };
 
-export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplete: (result: RiskAnalysisResult) => void }) {
+export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () => void }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [testingDate, setTestingDate] = useState('2026-05-20');
   const [testingType, setTestingType] = useState('Comprehensive OA panel');
@@ -34,26 +17,6 @@ export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplet
   const [uploadedReports, setUploadedReports] = useState<string[]>([]);
   const [scheduledTests, setScheduledTests] = useState<string[]>([]);
   const [homeVisits, setHomeVisits] = useState<string[]>([]);
-  const [inputError, setInputError] = useState('');
-  const [inputs, setInputs] = useState<AnalysisInputForm>({
-    vitaminD: '',
-    omega3: '',
-    hsCrp: '',
-    il6: '',
-    comp: '',
-    oxidativeStress: '',
-    microbiomeDiversity: '',
-    geneticPercentile: '',
-    imagingSeverity: '',
-    symptomSeverity: '',
-    mobilityScore: '',
-    treatmentAdherence: '',
-  });
-
-  const updateInput = (key: keyof typeof inputs, value: string) => {
-    setInputs((current) => ({ ...current, [key]: value === '' ? '' : Number(value) }));
-    setInputError('');
-  };
 
   const uploadReport = (files?: FileList | null) => {
     if (files && files.length > 0) {
@@ -62,49 +25,6 @@ export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplet
     }
     const next = `Uploaded OA report ${uploadedReports.length + 1}.pdf`;
     setUploadedReports((current) => [next, ...current]);
-  };
-
-  const runAnalysis = () => {
-    const missing = (Object.keys(inputs) as Array<keyof AnalysisInputs>).filter((key) => inputs[key] === '' || Number.isNaN(inputs[key]));
-    if (missing.length > 0) {
-      setInputError(`Complete these fields before running analysis: ${missing.map((key) => inputLabels[key]).join(', ')}.`);
-      return;
-    }
-    const completeInputs = inputs as AnalysisInputs;
-    const inflammationScore = Math.min(100, Math.round((completeInputs.hsCrp / 6) * 35 + (completeInputs.il6 / 8) * 35 + (completeInputs.comp / 18) * 15 + (completeInputs.oxidativeStress / 18) * 15));
-    const nutrientDeficiencyScore = Math.min(100, Math.round((completeInputs.vitaminD < 40 ? (40 - completeInputs.vitaminD) * 2 : 0) + (completeInputs.omega3 < 8 ? (8 - completeInputs.omega3) * 10 : 0) + (completeInputs.microbiomeDiversity < 75 ? (75 - completeInputs.microbiomeDiversity) : 0)));
-    const symptomMobilityScore = Math.min(100, Math.round(completeInputs.symptomSeverity * 0.65 + (100 - completeInputs.mobilityScore) * 0.35));
-    const factors: OAFactors = {
-      imagingSeverity: completeInputs.imagingSeverity,
-      symptomSeverity: symptomMobilityScore,
-      inflammationScore,
-      geneticRisk: completeInputs.geneticPercentile,
-      nutrientDeficiencyScore,
-      treatmentAdherence: completeInputs.treatmentAdherence,
-    };
-    const result = calculateOAChanceScore(factors);
-    const drivers = [
-      completeInputs.hsCrp > 3 ? 'hs-CRP above preferred range' : '',
-      completeInputs.il6 > 2 ? 'IL-6 inflammation signal' : '',
-      completeInputs.vitaminD < 40 ? 'Vitamin D below target' : '',
-      completeInputs.omega3 < 8 ? 'Omega-3 Index below target' : '',
-      completeInputs.oxidativeStress > 8 ? '8-OHdG oxidative stress marker elevated' : '',
-      completeInputs.imagingSeverity > 40 ? 'Imaging severity input above baseline' : '',
-    ].filter(Boolean);
-    onAnalysisComplete({
-      score: result.score,
-      category: result.category,
-      drivers,
-      inputs: completeInputs,
-      factorScores: {
-        imagingSeverity: completeInputs.imagingSeverity,
-        symptomMobilityScore,
-        inflammationScore,
-        geneticRisk: completeInputs.geneticPercentile,
-        nutrientDeficiencyScore,
-        treatmentAdherence: completeInputs.treatmentAdherence,
-      },
-    });
   };
 
   return (
@@ -124,7 +44,7 @@ export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplet
             onChange={(event) => uploadReport(event.target.files)}
           />
           <Button variant="secondary" onClick={() => fileInputRef.current?.click()}><FileUp className="h-4 w-4" /> Upload Report</Button>
-          <Button onClick={runAnalysis}><PlayCircle className="h-4 w-4" /> Run Risk Analysis</Button>
+          <Button onClick={onStartAnalysis}><PlayCircle className="h-4 w-4" /> Run Risk Analysis</Button>
         </div>
       </div>
       {uploadedReports.length > 0 && (
@@ -143,30 +63,6 @@ export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplet
           )}
         </div>
       )}
-      <section className="card p-6">
-        <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
-          <div>
-            <h2 className="text-xl font-black text-navy">Analysis Inputs</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">This is the required data-entry step. The score is not calculated until these patient-entered values are complete and the analysis is run.</p>
-          </div>
-          <Button onClick={runAnalysis}><PlayCircle /> Continue to Risk Analysis</Button>
-        </div>
-        {inputError && <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm font-semibold text-rose-700">{inputError}</div>}
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <InputField label="25(OH) Vitamin D" unit="ng/mL" value={inputs.vitaminD} onChange={(value) => updateInput('vitaminD', value)} />
-          <InputField label="Omega-3 Index" unit="%" value={inputs.omega3} onChange={(value) => updateInput('omega3', value)} />
-          <InputField label="hs-CRP" unit="mg/L" value={inputs.hsCrp} onChange={(value) => updateInput('hsCrp', value)} />
-          <InputField label="Interleukin-6" unit="pg/mL" value={inputs.il6} onChange={(value) => updateInput('il6', value)} />
-          <InputField label="COMP" unit="U/L" value={inputs.comp} onChange={(value) => updateInput('comp', value)} />
-          <InputField label="8-OHdG" unit="ng/mg" value={inputs.oxidativeStress} onChange={(value) => updateInput('oxidativeStress', value)} />
-          <InputField label="Microbiome Diversity" unit="score" value={inputs.microbiomeDiversity} onChange={(value) => updateInput('microbiomeDiversity', value)} />
-          <InputField label="Genetic Risk Percentile" unit="%" value={inputs.geneticPercentile} onChange={(value) => updateInput('geneticPercentile', value)} />
-          <InputField label="Imaging Severity" unit="0-100" value={inputs.imagingSeverity} onChange={(value) => updateInput('imagingSeverity', value)} />
-          <InputField label="Symptom Severity" unit="0-100" value={inputs.symptomSeverity} onChange={(value) => updateInput('symptomSeverity', value)} />
-          <InputField label="Mobility Score" unit="0-100" value={inputs.mobilityScore} onChange={(value) => updateInput('mobilityScore', value)} />
-          <InputField label="Treatment Adherence" unit="%" value={inputs.treatmentAdherence} onChange={(value) => updateInput('treatmentAdherence', value)} />
-        </div>
-      </section>
       <div className="grid gap-6 xl:grid-cols-2">
         <div className="card p-6">
           <div className="flex items-start gap-3">
@@ -276,22 +172,5 @@ export function ComprehensiveTesting({ onAnalysisComplete }: { onAnalysisComplet
       </section>
       <DisclaimerBox />
     </div>
-  );
-}
-
-function InputField({ label, unit, value, onChange }: { label: string; unit: string; value: number | ''; onChange: (value: string) => void }) {
-  return (
-    <label className="block rounded-2xl border border-slate-200 bg-white p-4">
-      <span className="text-sm font-bold text-navy">{label}</span>
-      <div className="mt-2 flex items-center gap-2">
-        <input
-          type="number"
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-navy outline-none focus:border-violet focus:ring-2 focus:ring-violet/10"
-        />
-        <span className="shrink-0 text-xs font-bold text-slate-500">{unit}</span>
-      </div>
-    </label>
   );
 }
