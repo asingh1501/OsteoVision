@@ -10,7 +10,7 @@ export function TreatmentCard({ item, onComplete }: { item: TreatmentItem; onCom
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <h3 className="text-lg font-bold text-navy">{item.title}</h3>
-            <span className="rounded-full bg-lavender px-2.5 py-1 text-xs font-bold capitalize text-violet">{item.category}</span>
+            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold capitalize text-slate-700">{item.category}</span>
             <RiskBadge status={item.complete ? 'improved' : item.adherence === 'Needs attention' ? 'worsened' : 'stable'} />
           </div>
           <p className="text-sm leading-6 text-slate-600">{item.description}</p>

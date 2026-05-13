@@ -10,6 +10,7 @@ import { Activity, Focus, ShieldCheck } from 'lucide-react';
 
 export function TreatmentPlan() {
   const [items, setItems] = useState(initialTreatments);
+  const [calendarMessage, setCalendarMessage] = useState('');
   const adherence = useMemo(() => Math.round((items.filter((item) => item.complete).length / items.length) * 100), [items]);
 
   return (
@@ -19,8 +20,11 @@ export function TreatmentPlan() {
           <h1 className="text-2xl font-black text-navy">Baseline Vigilance Treatment Plan</h1>
           <p className="mt-2 text-slate-600">Personalized care planning and reminder support for clinician-reviewed next steps.</p>
         </div>
-        <Button><CalendarPlus className="h-4 w-4" /> Accept & Add to Calendar</Button>
+        <Button onClick={() => setCalendarMessage('Treatment plan accepted. Seven reminders were added to the mock OsteoVision calendar.')}>
+          <CalendarPlus className="h-4 w-4" /> Accept & Add to Calendar
+        </Button>
       </div>
+      {calendarMessage && <div className="rounded-2xl bg-emerald-50 p-4 text-sm font-bold text-emerald-700">{calendarMessage}</div>}
       <div className="grid gap-4 md:grid-cols-3">
         <StatCard title="Disease Stage" value="Baseline Vigilance" caption="Trend monitoring and early intervention support" icon={ShieldCheck} />
         <StatCard title="Risk Score" value="37%" caption="Moderate risk decision-support score" icon={Activity} />

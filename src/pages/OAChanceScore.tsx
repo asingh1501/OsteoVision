@@ -15,14 +15,14 @@ const breakdown = [
 export function OAChanceScore() {
   return (
     <div className="space-y-6">
-      <div className="gradient-panel rounded-3xl p-8 shadow-soft">
+      <div className="gradient-panel rounded-2xl p-8">
         <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan">Prototype decision-support model</p>
         <h1 className="mt-3 text-4xl font-black">Osteoarthritis Chance Score</h1>
         <div className="mt-6 flex flex-wrap items-end gap-5">
-          <span className="text-7xl font-black">37%</span>
+          <span className="text-7xl font-black text-navy">37%</span>
           <div>
             <p className="text-2xl font-bold">Moderate Risk</p>
-            <p className="max-w-2xl text-white/85">Moderate risk detected based on biomarker variation, imaging indicators, symptom patterns, and genetic predisposition.</p>
+            <p className="max-w-2xl text-slate-600">Moderate risk detected based on biomarker variation, imaging indicators, symptom patterns, and genetic predisposition.</p>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@ export function OAChanceScore() {
           <h3 className="mt-6 font-bold text-navy">Recommended Next Steps</h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {['Continue symptom tracking', 'Review results with clinician', 'Begin targeted inflammation reduction plan', 'Schedule follow-up testing', 'Consider physical therapy evaluation'].map((step) => (
-              <div key={step} className="flex items-center gap-2 rounded-2xl bg-lavender p-3 text-sm font-semibold text-navy">
+              <div key={step} className="flex items-center gap-2 rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">
                 <CheckCircle2 className="h-5 w-5 text-cyan" /> {step}
               </div>
             ))}

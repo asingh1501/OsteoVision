@@ -16,19 +16,19 @@ export function TreatmentEffectiveness() {
     <div className="space-y-6">
       <div className="card p-6">
         <div className="grid gap-3 md:grid-cols-2">
-          <select value={baselineId} onChange={(event) => setBaselineId(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy">
+          <select value={baselineId} onChange={(event) => setBaselineId(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
             {testHistory.map((item) => <option key={item.id} value={item.id}>Baseline: {item.date}</option>)}
           </select>
-          <select value={currentId} onChange={(event) => setCurrentId(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy">
+          <select value={currentId} onChange={(event) => setCurrentId(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
             {testHistory.map((item) => <option key={item.id} value={item.id}>Current: {item.date}</option>)}
           </select>
         </div>
       </div>
       <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
-        <div className="gradient-panel rounded-3xl p-6 shadow-soft">
+        <div className="gradient-panel rounded-2xl p-6">
           <p className="font-bold text-cyan">Treatment impact summary</p>
           <h1 className="mt-3 text-4xl font-black">{rating}</h1>
-          <p className="mt-4 text-white/85">OsteoVision compares diagnostic markers and symptom patterns over time to help patients and clinicians understand whether the current care plan is improving, stabilizing, or worsening osteoarthritis-related risk.</p>
+          <p className="mt-4 text-slate-600">OsteoVision compares diagnostic markers and symptom patterns over time to help patients and clinicians understand whether the current care plan is improving, stabilizing, or worsening osteoarthritis-related risk.</p>
         </div>
         <ChartCard title="OA Chance Score Trend">
           <div className="h-64">

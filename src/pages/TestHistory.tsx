@@ -31,17 +31,17 @@ export function TestHistory() {
         <div className="card p-5">
           <h2 className="text-xl font-black text-navy">Compare Baseline vs Current</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            <select value={left} onChange={(event) => setLeft(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy">
+            <select value={left} onChange={(event) => setLeft(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
               {testHistory.map((item) => <option key={item.id} value={item.id}>{item.date}</option>)}
             </select>
-            <select value={right} onChange={(event) => setRight(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy">
+            <select value={right} onChange={(event) => setRight(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
               {testHistory.map((item) => <option key={item.id} value={item.id}>{item.date}</option>)}
             </select>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {[baseline, current].map((item) => (
-              <div key={item.id} className="rounded-2xl bg-lavender p-4">
-                <p className="text-sm font-bold text-violet">{item.date}</p>
+              <div key={item.id} className="rounded-2xl bg-slate-50 p-4">
+                <p className="text-sm font-bold text-cyan">{item.date}</p>
                 <p className="mt-1 text-3xl font-black text-navy">{item.score}%</p>
                 <p className="text-sm text-slate-600">{item.stage}</p>
               </div>
@@ -75,7 +75,7 @@ export function TestHistory() {
             ['Omega-3', 'Review nutrition pattern, supplement safety, and medication interaction risk.'],
             ['Mobility', 'Consider PT-guided progression for strength, gait, and joint-friendly activity.'],
           ].map(([title, copy]) => (
-            <div key={title} className="rounded-2xl bg-lavender p-4">
+            <div key={title} className="rounded-2xl bg-slate-50 p-4">
               <h3 className="font-bold text-navy">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
             </div>

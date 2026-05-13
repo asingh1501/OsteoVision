@@ -5,8 +5,8 @@ export function ProgressBar({ value, label }: { value: number; label?: string })
         <span>{label}</span>
         <span>{value}%</span>
       </div>
-      <div className="h-3 overflow-hidden rounded-full bg-lavender">
-        <div className="h-full rounded-full bg-gradient-to-r from-cyan via-violet to-magenta" style={{ width: `${value}%` }} />
+      <div className="h-3 overflow-hidden rounded-full bg-slate-100">
+        <div className="h-full rounded-full bg-cyan" style={{ width: `${value}%` }} />
       </div>
     </div>
   );

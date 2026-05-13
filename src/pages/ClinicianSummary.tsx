@@ -1,10 +1,12 @@
 import { Download, Share2 } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { ProgressBar } from '../components/ProgressBar';
 import { biomarkers, imagingResults, patientProfile } from '../data/mockData';
 
 export function ClinicianSummary() {
+  const [actionMessage, setActionMessage] = useState('');
   const abnormal = biomarkers.filter((item) => ['high risk', 'low', 'moderate'].includes(item.status)).slice(0, 5);
 
   return (
@@ -15,10 +17,11 @@ export function ClinicianSummary() {
           <p className="mt-2 text-slate-600">{patientProfile.name}, age {patientProfile.age} · Primary focus: {patientProfile.primaryJoint}</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="secondary"><Download className="h-4 w-4" /> Export PDF</Button>
-          <Button><Share2 className="h-4 w-4" /> Share with Provider</Button>
+          <Button variant="secondary" onClick={() => setActionMessage('Clinician summary PDF generated in the demo export queue.')}><Download className="h-4 w-4" /> Export PDF</Button>
+          <Button onClick={() => setActionMessage('Secure provider-share request prepared for Northlake Orthopedics.') }><Share2 className="h-4 w-4" /> Share with Provider</Button>
         </div>
       </div>
+      {actionMessage && <div className="rounded-2xl bg-emerald-50 p-4 text-sm font-bold text-emerald-700">{actionMessage}</div>}
       <div className="grid gap-6 xl:grid-cols-[0.75fr_1.25fr]">
         <div className="card p-6">
           <h2 className="text-xl font-black text-navy">Patient Overview</h2>
@@ -34,7 +37,7 @@ export function ClinicianSummary() {
           <h2 className="text-xl font-black text-navy">Key Risk Factors And Recent Abnormal Markers</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {abnormal.map((item) => (
-              <div key={item.name} className="rounded-2xl bg-lavender p-4">
+              <div key={item.name} className="rounded-2xl bg-slate-50 p-4">
                 <p className="font-bold text-navy">{item.name}</p>
                 <p className="text-sm text-slate-600">{item.value} {item.unit} · ideal {item.idealRange}</p>
               </div>
@@ -57,7 +60,7 @@ function Summary({ title, items }: { title: string; items: string[] }) {
     <div className="card p-5">
       <h3 className="text-lg font-black text-navy">{title}</h3>
       <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-        {items.map((item) => <li key={item} className="rounded-2xl bg-lavender p-3">{item}</li>)}
+        {items.map((item) => <li key={item} className="rounded-2xl bg-slate-50 p-3">{item}</li>)}
       </ul>
     </div>
   );

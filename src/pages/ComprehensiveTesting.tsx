@@ -1,5 +1,5 @@
-import { CalendarClock, FileUp, Home, PlayCircle, Syringe } from 'lucide-react';
-import { useState } from 'react';
+import { CalendarClock, CheckCircle2, FileUp, Home, PlayCircle, Syringe } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { BiomarkerCard } from '../components/BiomarkerCard';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
@@ -9,10 +9,28 @@ import { biomarkers, imagingResults } from '../data/mockData';
 const groups = ['Blood Panel', 'Stool Analysis', 'Urine Test', 'Saliva / Genetic Test'] as const;
 
 export function ComprehensiveTesting() {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [testingDate, setTestingDate] = useState('2026-05-20');
   const [testingType, setTestingType] = useState('Comprehensive OA panel');
   const [homeVisitDate, setHomeVisitDate] = useState('2026-05-21');
   const [homeVisitRole, setHomeVisitRole] = useState('Phlebotomist');
+  const [uploadedReports, setUploadedReports] = useState<string[]>([]);
+  const [scheduledTests, setScheduledTests] = useState<string[]>([]);
+  const [homeVisits, setHomeVisits] = useState<string[]>([]);
+  const [analysis, setAnalysis] = useState('');
+
+  const uploadReport = (files?: FileList | null) => {
+    if (files && files.length > 0) {
+      setUploadedReports((current) => [...Array.from(files).map((file) => file.name), ...current]);
+      return;
+    }
+    const next = `Uploaded OA report ${uploadedReports.length + 1}.pdf`;
+    setUploadedReports((current) => [next, ...current]);
+  };
+
+  const runAnalysis = () => {
+    setAnalysis('Risk analysis complete: moderate risk pattern detected. Key drivers are hs-CRP, IL-6, Vitamin D, Omega-3 Index, 8-OHdG, and trace effusion.');
+  };
 
   return (
     <div className="space-y-6">
@@ -22,14 +40,44 @@ export function ComprehensiveTesting() {
           <p className="mt-2 text-slate-600">Mock diagnostic inputs are organized for future API, lab, microbiome, urine, saliva, genetics, MRI, and X-ray integrations.</p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Button variant="secondary"><FileUp className="h-4 w-4" /> Upload Report</Button>
-          <Button><PlayCircle className="h-4 w-4" /> Run Risk Analysis</Button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            className="hidden"
+            accept=".pdf,.png,.jpg,.jpeg,.csv"
+            onChange={(event) => uploadReport(event.target.files)}
+          />
+          <Button variant="secondary" onClick={() => fileInputRef.current?.click()}><FileUp className="h-4 w-4" /> Upload Report</Button>
+          <Button onClick={runAnalysis}><PlayCircle className="h-4 w-4" /> Run Risk Analysis</Button>
         </div>
       </div>
+      {(uploadedReports.length > 0 || analysis) && (
+        <div className="grid gap-4 xl:grid-cols-2">
+          {uploadedReports.length > 0 && (
+            <div className="card p-5">
+              <h3 className="text-lg font-black text-navy">Uploaded Reports</h3>
+              <div className="mt-3 space-y-2">
+                {uploadedReports.map((report) => (
+                  <div key={report} className="flex items-center gap-2 rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-500" /> {report}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {analysis && (
+            <div className="card p-5">
+              <h3 className="text-lg font-black text-navy">Risk Analysis Result</h3>
+              <p className="mt-3 rounded-2xl bg-cyan/10 p-4 text-sm leading-6 text-slate-700">{analysis}</p>
+            </div>
+          )}
+        </div>
+      )}
       <div className="grid gap-6 xl:grid-cols-2">
         <div className="card p-6">
           <div className="flex items-start gap-3">
-            <div className="rounded-2xl bg-gradient-to-br from-cyan to-violet p-3 text-white">
+            <div className="rounded-xl bg-slate-100 p-3 text-cyan">
               <CalendarClock className="h-6 w-6" />
             </div>
             <div>
@@ -38,8 +86,8 @@ export function ComprehensiveTesting() {
             </div>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
-            <input type="date" value={testingDate} onChange={(event) => setTestingDate(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy" />
-            <select value={testingType} onChange={(event) => setTestingType(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy md:col-span-2">
+            <input type="date" value={testingDate} onChange={(event) => setTestingDate(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy" />
+            <select value={testingType} onChange={(event) => setTestingType(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy md:col-span-2">
               <option>Comprehensive OA panel</option>
               <option>Blood biomarker panel</option>
               <option>Stool microbiome kit</option>
@@ -48,11 +96,16 @@ export function ComprehensiveTesting() {
               <option>Medication genetics panel</option>
             </select>
           </div>
-          <Button className="mt-4" variant="secondary"><CalendarClock className="h-4 w-4" /> Hold Testing Slot</Button>
+          <Button className="mt-4" variant="secondary" onClick={() => setScheduledTests((current) => [`${testingType} on ${testingDate}`, ...current])}><CalendarClock className="h-4 w-4" /> Hold Testing Slot</Button>
+          {scheduledTests.length > 0 && (
+            <div className="mt-4 space-y-2">
+              {scheduledTests.map((slot) => <div key={slot} className="rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">{slot}</div>)}
+            </div>
+          )}
         </div>
         <div className="card p-6">
           <div className="flex items-start gap-3">
-            <div className="rounded-2xl bg-gradient-to-br from-magenta to-cyan p-3 text-white">
+            <div className="rounded-xl bg-slate-100 p-3 text-cyan">
               <Home className="h-6 w-6" />
             </div>
             <div>
@@ -61,18 +114,23 @@ export function ComprehensiveTesting() {
             </div>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
-            <input type="date" value={homeVisitDate} onChange={(event) => setHomeVisitDate(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy" />
-            <select value={homeVisitRole} onChange={(event) => setHomeVisitRole(event.target.value)} className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy">
+            <input type="date" value={homeVisitDate} onChange={(event) => setHomeVisitDate(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy" />
+            <select value={homeVisitRole} onChange={(event) => setHomeVisitRole(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
               <option>Phlebotomist</option>
               <option>Registered Nurse</option>
             </select>
-            <select className="rounded-xl border border-violet/20 bg-white p-3 font-semibold text-navy">
+            <select className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
               <option>Morning</option>
               <option>Afternoon</option>
               <option>Evening</option>
             </select>
           </div>
-          <Button className="mt-4"><Syringe className="h-4 w-4" /> Request Home Visit</Button>
+          <Button className="mt-4" onClick={() => setHomeVisits((current) => [`${homeVisitRole} home blood draw requested for ${homeVisitDate}`, ...current])}><Syringe className="h-4 w-4" /> Request Home Visit</Button>
+          {homeVisits.length > 0 && (
+            <div className="mt-4 space-y-2">
+              {homeVisits.map((visit) => <div key={visit} className="rounded-2xl bg-slate-50 p-3 text-sm font-semibold text-navy">{visit}</div>)}
+            </div>
+          )}
         </div>
       </div>
       {groups.map((group) => (
@@ -112,7 +170,7 @@ export function ComprehensiveTesting() {
             ['8-OHdG high', 'Discuss oxidative stress contributors, recovery, smoking exposure, and follow-up testing.'],
             ['Mobility below goal', 'Consider a physical therapy evaluation for strength, gait, and joint-friendly loading.'],
           ].map(([title, copy]) => (
-            <div key={title} className="rounded-2xl bg-lavender p-4">
+            <div key={title} className="rounded-2xl bg-slate-50 p-4">
               <h3 className="font-bold text-navy">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
             </div>

@@ -48,16 +48,16 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#e6fbff_0,#f7f4ff_30%,#fbfaff_70%)]">
+    <div className="min-h-screen bg-slate-50">
       <div className="flex">
         <Sidebar activePage={activePage} onNavigate={setActivePage} />
         <main className="min-w-0 flex-1">
           <Topbar activePage={activePage} />
-          <div className="border-b border-white/70 bg-white/65 px-4 py-3 lg:hidden">
+          <div className="border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
             <select
               value={activePage}
               onChange={(event) => setActivePage(event.target.value as PageId)}
-              className="w-full rounded-xl border border-violet/20 bg-white p-3 font-bold text-navy"
+              className="w-full rounded-xl border border-slate-300 bg-white p-3 font-bold text-navy"
             >
               {Object.entries(pageLabels).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
             </select>

@@ -17,9 +17,9 @@ const navItems: NavItem[] = [
 
 export function Sidebar({ activePage, onNavigate }: { activePage: PageId; onNavigate: (page: PageId) => void }) {
   return (
-    <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-white/70 bg-white/80 px-4 py-6 backdrop-blur-xl lg:block">
+    <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-slate-200 bg-white px-4 py-6 lg:block">
       <div className="mb-8 flex items-center gap-3 px-2">
-        <div className="rounded-2xl bg-gradient-to-br from-cyan via-violet to-magenta p-3 text-white">
+        <div className="rounded-xl bg-navy p-3 text-white">
           <Stethoscope className="h-6 w-6" />
         </div>
         <div>
@@ -33,7 +33,7 @@ export function Sidebar({ activePage, onNavigate }: { activePage: PageId; onNavi
             key={id}
             onClick={() => onNavigate(id)}
             className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm font-bold transition ${
-              activePage === id ? 'bg-gradient-to-r from-violet to-magenta text-white shadow-lg shadow-fuchsia-500/20' : 'text-slate-600 hover:bg-lavender hover:text-navy'
+              activePage === id ? 'bg-slate-100 text-navy ring-1 ring-slate-200' : 'text-slate-600 hover:bg-slate-50 hover:text-navy'
             }`}
           >
             <Icon className="h-5 w-5" />
