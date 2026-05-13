@@ -1,0 +1,96 @@
+import type { LucideIcon } from 'lucide-react';
+
+export type Status = 'optimal' | 'moderate' | 'high risk' | 'low' | 'improved' | 'worsened' | 'stable';
+export type RiskCategory = 'Proactive / Low Risk' | 'Baseline Vigilance / Moderate Risk' | 'Elevated Risk' | 'High Risk';
+
+export interface NavItem {
+  id: PageId;
+  label: string;
+  icon: LucideIcon;
+}
+
+export type PageId =
+  | 'dashboard'
+  | 'testing'
+  | 'score'
+  | 'history'
+  | 'plan'
+  | 'effectiveness'
+  | 'drugs'
+  | 'doctors'
+  | 'education'
+  | 'membership'
+  | 'clinician';
+
+export interface PatientProfile {
+  name: string;
+  age: number;
+  careTeam: string;
+  primaryJoint: string;
+  nextReminder: string;
+}
+
+export interface Biomarker {
+  name: string;
+  value: string | number;
+  unit: string;
+  idealRange: string;
+  status: Status;
+  group: 'Blood Panel' | 'Stool Analysis' | 'Urine Test' | 'Saliva / Genetic Test';
+  explanation: string;
+}
+
+export interface ImagingResult {
+  name: string;
+  value: string;
+  status: Status;
+  explanation: string;
+}
+
+export interface TreatmentItem {
+  id: number;
+  title: string;
+  category: 'supplement' | 'therapy' | 'lifestyle' | 'test' | 'clinician';
+  dueDate: string;
+  frequency: string;
+  description: string;
+  adherence: 'On track' | 'Due soon' | 'Needs attention';
+  complete: boolean;
+}
+
+export interface TestHistoryItem {
+  id: string;
+  date: string;
+  score: number;
+  stage: string;
+  changedMarkers: string[];
+  crp: number;
+  vitaminD: number;
+  omega3: number;
+  mobility: number;
+}
+
+export interface Doctor {
+  name: string;
+  specialty: string;
+  rating: number;
+  distance: number;
+  clinic: string;
+  phone: string;
+}
+
+export interface EducationResource {
+  title: string;
+  description: string;
+  readTime: string;
+  category: string;
+  type: 'article' | 'video';
+}
+
+export interface MedicationInteraction {
+  name: string;
+  risk: 'low' | 'moderate' | 'high';
+  category: string;
+  genes: string[];
+  concern: string;
+}
