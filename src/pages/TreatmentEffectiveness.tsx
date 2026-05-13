@@ -7,10 +7,10 @@ import { testHistory } from '../data/mockData';
 
 export function TreatmentEffectiveness() {
   const [baselineId, setBaselineId] = useState('jan');
-  const [currentId, setCurrentId] = useState('may');
+  const [comparisonId, setComparisonId] = useState('may');
   const baseline = testHistory.find((item) => item.id === baselineId)!;
-  const current = testHistory.find((item) => item.id === currentId)!;
-  const rating = current.score < baseline.score && current.mobility > baseline.mobility ? 'Improving' : current.score === baseline.score ? 'Stable' : 'Needs Review';
+  const comparison = testHistory.find((item) => item.id === comparisonId)!;
+  const rating = comparison.score < baseline.score && comparison.mobility > baseline.mobility ? 'Improving' : comparison.score === baseline.score ? 'Stable' : 'Needs Review';
 
   return (
     <div className="space-y-6">
@@ -19,8 +19,8 @@ export function TreatmentEffectiveness() {
           <select value={baselineId} onChange={(event) => setBaselineId(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
             {testHistory.map((item) => <option key={item.id} value={item.id}>Baseline: {item.date}</option>)}
           </select>
-          <select value={currentId} onChange={(event) => setCurrentId(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
-            {testHistory.map((item) => <option key={item.id} value={item.id}>Current: {item.date}</option>)}
+          <select value={comparisonId} onChange={(event) => setComparisonId(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">
+            {testHistory.map((item) => <option key={item.id} value={item.id}>Comparison record: {item.date}</option>)}
           </select>
         </div>
       </div>
@@ -44,10 +44,10 @@ export function TreatmentEffectiveness() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {[
-          ['hs-CRP decreased', `${baseline.crp} -> ${current.crp}`, current.crp < baseline.crp],
-          ['Vitamin D increased', `${baseline.vitaminD} -> ${current.vitaminD}`, current.vitaminD > baseline.vitaminD],
-          ['Omega-3 Index increased', `${baseline.omega3} -> ${current.omega3}`, current.omega3 > baseline.omega3],
-          ['Mobility score increased', `${baseline.mobility} -> ${current.mobility}`, current.mobility > baseline.mobility],
+          ['hs-CRP decreased', `${baseline.crp} -> ${comparison.crp}`, comparison.crp < baseline.crp],
+          ['Vitamin D increased', `${baseline.vitaminD} -> ${comparison.vitaminD}`, comparison.vitaminD > baseline.vitaminD],
+          ['Omega-3 Index increased', `${baseline.omega3} -> ${comparison.omega3}`, comparison.omega3 > baseline.omega3],
+          ['Mobility score increased', `${baseline.mobility} -> ${comparison.mobility}`, comparison.mobility > baseline.mobility],
         ].map(([name, value, good]) => (
           <div key={String(name)} className="card p-5">
             <div className="flex justify-between gap-3">

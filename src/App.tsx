@@ -42,14 +42,14 @@ function App() {
       case 'testing': return <ComprehensiveTesting onAnalysisComplete={handleAnalysisComplete} />;
       case 'score': return <OAChanceScore analysis={riskAnalysis} onEditInputs={() => setActivePage('testing')} />;
       case 'history': return <TestHistory />;
-      case 'plan': return <TreatmentPlan />;
+      case 'plan': return <TreatmentPlan analysis={riskAnalysis} />;
       case 'effectiveness': return <TreatmentEffectiveness />;
       case 'drugs': return <DrugGeneticTesting />;
       case 'doctors': return <FindDoctors />;
       case 'education': return <EducationResources />;
       case 'membership': return <MembershipPlans />;
-      case 'clinician': return <ClinicianSummary />;
-      default: return <Dashboard onNavigate={setActivePage} />;
+      case 'clinician': return <ClinicianSummary analysis={riskAnalysis} />;
+      default: return <Dashboard onNavigate={setActivePage} analysis={riskAnalysis} />;
     }
   };
 

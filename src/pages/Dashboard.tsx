@@ -5,9 +5,9 @@ import { Button } from '../components/Button';
 import { ChartCard } from '../components/ChartCard';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { StatCard } from '../components/StatCard';
-import type { PageId } from '../types';
+import type { PageId, RiskAnalysisResult } from '../types';
 
-export function Dashboard({ onNavigate }: { onNavigate: (page: PageId) => void }) {
+export function Dashboard({ onNavigate, analysis }: { onNavigate: (page: PageId) => void; analysis: RiskAnalysisResult | null }) {
   const quickActions = [
     ['Upload Medical Records', FileUp, 'testing'],
     ['Enter New Symptoms', NotepadText, 'history'],
@@ -24,8 +24,13 @@ export function Dashboard({ onNavigate }: { onNavigate: (page: PageId) => void }
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard title="Current OA Chance Score" value="37%" caption="Moderate risk, down 5 points since January" icon={Activity} />
-        <StatCard title="Disease Stage" value="Baseline Vigilance" caption="Focused on prevention and trend awareness" icon={FlaskConical} />
+        <StatCard
+          title="Current OA Chance Score"
+          value={analysis ? `${analysis.score}%` : 'Not run'}
+          caption={analysis ? analysis.category : 'Enter testing data to generate a score'}
+          icon={Activity}
+        />
+        <StatCard title="Disease Stage" value={analysis ? analysis.category.split(' / ')[0] : 'Pending'} caption={analysis ? 'Generated from current testing inputs' : 'No current analysis yet'} icon={FlaskConical} />
         <StatCard title="Next Reminder" value="May 18" caption={patientProfile.nextReminder} icon={CalendarClock} />
         <StatCard title="Mobility Score" value="68 / 100" caption="Improving with strength and mobility plan" icon={Footprints} />
       </div>
@@ -44,7 +49,9 @@ export function Dashboard({ onNavigate }: { onNavigate: (page: PageId) => void }
         </ChartCard>
         <div className="card p-5">
           <h3 className="text-lg font-bold text-navy">Recent Test Result Summary</h3>
-          <p className="mt-3 text-sm leading-6 text-slate-600">Latest panel shows hs-CRP improving, Vitamin D still below target, Omega-3 trending upward, and trace effusion on imaging summary.</p>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            {analysis ? `Latest generated analysis found ${analysis.drivers.length || 'no major'} key driver${analysis.drivers.length === 1 ? '' : 's'} from the entered data.` : 'No current risk analysis has been generated. Upload records or enter testing values, then run the analysis to create a current score.'}
+          </p>
           <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold text-amber-800">Alert: Follow up with clinician before changing medications or supplements.</div>
         </div>
       </div>
