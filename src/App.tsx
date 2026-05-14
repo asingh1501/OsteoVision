@@ -9,6 +9,7 @@ import { EducationResources } from './pages/EducationResources';
 import { FindDoctors } from './pages/FindDoctors';
 import { MembershipPlans } from './pages/MembershipPlans';
 import { OAChanceScore } from './pages/OAChanceScore';
+import { LoginPage } from './pages/LoginPage';
 import { TestHistory } from './pages/TestHistory';
 import { TreatmentEffectiveness } from './pages/TreatmentEffectiveness';
 import { TreatmentPlan } from './pages/TreatmentPlan';
@@ -28,6 +29,7 @@ const pageLabels: Partial<Record<PageId, string>> = {
 };
 
 function App() {
+  const [userName, setUserName] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<PageId>('dashboard');
   const [riskAnalysis, setRiskAnalysis] = useState<RiskAnalysisResult | null>(null);
 
@@ -52,12 +54,16 @@ function App() {
     }
   };
 
+  if (!userName) {
+    return <LoginPage onLogin={setUserName} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="flex">
         <Sidebar activePage={activePage} onNavigate={setActivePage} showScore={Boolean(riskAnalysis)} />
         <main className="min-w-0 flex-1">
-          <Topbar activePage={activePage} />
+          <Topbar activePage={activePage} userName={userName} onSignOut={() => setUserName(null)} />
           <div className="border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
             <select
               value={activePage}
