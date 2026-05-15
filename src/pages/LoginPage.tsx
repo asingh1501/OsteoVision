@@ -7,6 +7,7 @@ export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
   const [email, setEmail] = useState('maya.thompson@example.com');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState<'patient' | 'clinician'>('patient');
+  const [mode, setMode] = useState<'sign-in' | 'create'>('sign-in');
   const [error, setError] = useState('');
 
   const submit = () => {
@@ -61,8 +62,8 @@ export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
         <section className="card p-6 md:p-8">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-black text-navy">Sign in</h2>
-              <p className="mt-1 text-sm text-slate-600">Use the demo account or enter any email to continue.</p>
+              <h2 className="text-2xl font-black text-navy">{mode === 'sign-in' ? 'Sign in' : 'Create account'}</h2>
+              <p className="mt-1 text-base text-slate-600">Connected osteoarthritis care for patients and clinicians.</p>
             </div>
             <div className="rounded-xl bg-lavender p-3 text-violet">
               <ShieldCheck className="h-6 w-6" />
@@ -115,9 +116,12 @@ export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
             {error && <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-700">{error}</div>}
 
             <Button className="w-full" onClick={submit}>
-              Sign in to dashboard
+              {mode === 'sign-in' ? 'Sign in' : 'Create account'}
               <ArrowRight />
             </Button>
+            <button className="focus-ring w-full rounded-xl border border-slate-300 bg-white p-3 text-base font-bold text-violet" onClick={() => setMode(mode === 'sign-in' ? 'create' : 'sign-in')}>
+              {mode === 'sign-in' ? 'Create Account' : 'Already have an account? Sign in'}
+            </button>
           </div>
 
           <div className="mt-6 rounded-2xl bg-lavender p-4 text-sm leading-6 text-slate-700">

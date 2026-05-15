@@ -4,6 +4,8 @@ import { ChartCard } from '../components/ChartCard';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { RiskBadge } from '../components/RiskBadge';
 import { testHistory } from '../data/mockData';
+import { PageHero } from '../components/PageHero';
+import { BarChart3 } from 'lucide-react';
 
 export function TreatmentEffectiveness() {
   const [baselineId, setBaselineId] = useState('jan');
@@ -14,6 +16,7 @@ export function TreatmentEffectiveness() {
 
   return (
     <div className="space-y-6">
+      <PageHero icon={BarChart3} title="Treatment Effectiveness" explanation="See whether your care plan appears to be helping, staying stable, or needing review." actions={['Choose two records', 'Compare marker changes', 'Discuss trends with your clinician']} />
       <div className="card p-6">
         <div className="grid gap-3 md:grid-cols-2">
           <select value={baselineId} onChange={(event) => setBaselineId(event.target.value)} className="rounded-xl border border-slate-300 bg-white p-3 font-semibold text-navy">

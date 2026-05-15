@@ -1,4 +1,4 @@
-import type { Biomarker, Doctor, EducationResource, ImagingResult, MedicationInteraction, PatientProfile, TestHistoryItem, TreatmentItem } from '../types';
+import type { Biomarker, CareTeamProfile, Doctor, EducationResource, ImagingResult, InsuranceProfile, MedicationInteraction, ReminderPreferences, PatientProfile, TestHistoryItem, TreatmentCalendarEvent, TreatmentItem } from '../types';
 import { calculateOAChanceScore } from '../utils/calculateOAChanceScore';
 
 export const patientProfile: PatientProfile = {
@@ -61,6 +61,50 @@ export const initialTreatments: TreatmentItem[] = [
   { id: 5, title: 'Joint-friendly strength/mobility exercises', category: 'lifestyle', dueDate: 'Today', frequency: '4x weekly', description: 'Low-impact plan focused on range of motion and stable loading.', adherence: 'Due soon', complete: false },
   { id: 6, title: 'Follow-up lab testing', category: 'test', dueDate: 'Jul 2', frequency: 'Every 12 weeks', description: 'Repeat biomarkers to compare response over time.', adherence: 'On track', complete: false },
   { id: 7, title: 'Clinician review appointment', category: 'clinician', dueDate: 'Jul 9', frequency: 'Quarterly', description: 'Review trends, imaging summary, medication safety, and next steps.', adherence: 'Needs attention', complete: false },
+];
+
+export const insuranceProfile: InsuranceProfile = {
+  provider: 'BlueCross BlueShield Medicare Advantage',
+  memberId: 'BCBS-MOCK-2481',
+  groupNumber: 'OA-CARE-102',
+  policyHolder: 'Maya Thompson',
+  relationship: 'Self',
+  phone: '(800) 555-0110',
+};
+
+export const careTeamProfile: CareTeamProfile = {
+  primaryCarePhysician: 'Dr. Hannah Miller',
+  primaryClinic: 'Northlake Primary Care',
+  physicianPhone: '(312) 555-0148',
+  physicianEmail: 'portal@northlakeprimary.example',
+  preferredHospital: 'Northlake Medical Center',
+  portalUsername: 'maya.thompson',
+  orthopedicDoctor: 'Dr. Elena Rao',
+  rheumatologist: 'Dr. Samir Patel',
+  physicalTherapist: 'Jordan Kim, DPT',
+  nutritionist: 'Nina Alvarez, RD',
+  insuranceProvider: 'BlueCross BlueShield Medicare Advantage',
+  integrationStatus: 'Mock Connected',
+  lastSharedSummary: 'May 10, 2026',
+  consentToShare: true,
+};
+
+export const reminderPreferences: ReminderPreferences = {
+  method: 'App notification',
+  timing: '1 hour before',
+  caregiverContact: 'Avery Thompson - (312) 555-0199',
+};
+
+export const treatmentCalendarEvents: TreatmentCalendarEvent[] = [
+  { id: 1, title: 'Vitamin D supplement', date: '2026-05-15', time: '8:00 AM', category: 'supplement', status: 'completed', why: 'Supports bone, muscle, and joint health.', instructions: 'Take with breakfast as directed by your clinician.', frequency: 'Daily' },
+  { id: 2, title: 'Omega-3 supplement', date: '2026-05-15', time: '8:00 AM', category: 'supplement', status: 'pending', why: 'Supports an inflammation-aware care plan.', instructions: 'Take with food. Ask your doctor if you take blood thinners.', frequency: 'Daily' },
+  { id: 3, title: 'Magnesium support', date: '2026-05-15', time: '9:00 PM', category: 'supplement', status: 'upcoming', why: 'Supports muscle function and recovery.', instructions: 'Take in the evening if approved by your clinician.', frequency: 'Daily' },
+  { id: 4, title: 'Physical therapy session', date: '2026-05-18', time: '3:00 PM', category: 'therapy', status: 'upcoming', why: 'Builds strength and safer movement patterns.', instructions: 'Bring comfortable shoes and your symptom notes.', frequency: 'Mon/Wed/Fri' },
+  { id: 5, title: 'Joint mobility exercises', date: '2026-05-16', time: '6:00 PM', category: 'exercise', status: 'upcoming', why: 'Keeps joints moving in a gentle, controlled way.', instructions: 'Stop if pain sharply increases.', frequency: 'Daily' },
+  { id: 6, title: 'Follow-up lab panel', date: '2026-05-22', time: '10:00 AM', category: 'test', status: 'upcoming', why: 'Checks whether markers are changing over time.', instructions: 'Bring lab order and insurance card.', frequency: 'One time' },
+  { id: 7, title: 'Clinician review appointment', date: '2026-05-28', time: '2:30 PM', category: 'appointment', status: 'upcoming', why: 'Reviews results and adjusts the care plan.', instructions: 'Bring medication list and questions.', frequency: 'Quarterly' },
+  { id: 8, title: 'Weekly symptom check-in', date: '2026-05-17', time: '7:00 PM', category: 'check-in', status: 'upcoming', why: 'Helps your doctor see how you are feeling over time.', instructions: 'Record pain, stiffness, and walking comfort.', frequency: 'Weekly' },
+  { id: 9, title: 'Hydration and walking plan', date: '2026-05-14', time: '5:00 PM', category: 'lifestyle', status: 'missed', why: 'Supports movement and recovery.', instructions: 'Short, gentle walk if approved by your clinician.', frequency: 'Daily' },
 ];
 
 export const testHistory: TestHistoryItem[] = [

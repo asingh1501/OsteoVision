@@ -39,8 +39,9 @@ export function Sidebar({ activePage, onNavigate, showScore }: { activePage: Pag
         {navItems.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
+            aria-label={`Open ${label}`}
             onClick={() => onNavigate(id)}
-            className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm font-bold transition ${
+            className={`focus-ring flex w-full items-center gap-3 rounded-2xl px-3 py-3.5 text-left text-base font-bold transition ${
               activePage === id ? 'bg-lavender text-violet ring-1 ring-violet' : 'text-slate-600 hover:bg-lavender hover:text-navy'
             }`}
           >

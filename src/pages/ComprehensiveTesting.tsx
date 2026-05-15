@@ -1,10 +1,12 @@
-import { CalendarClock, CheckCircle2, FileUp, Home, PlayCircle, Syringe } from 'lucide-react';
+import { CalendarClock, CheckCircle2, FileUp, Home, PlayCircle, Syringe, TestTube } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { BiomarkerCard } from '../components/BiomarkerCard';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { RiskBadge } from '../components/RiskBadge';
 import { biomarkers, imagingResults } from '../data/mockData';
+import { PageHero } from '../components/PageHero';
+import { AccessibilityNotice } from '../components/AccessibilityNotice';
 
 const groups = ['Blood Panel', 'Stool Analysis', 'Urine Test', 'Saliva / Genetic Test'] as const;
 
@@ -29,6 +31,8 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
 
   return (
     <div className="space-y-6">
+      <PageHero icon={TestTube} title="Comprehensive Testing" explanation="View your lab, imaging, genetic, and symptom results in one place." actions={['Review abnormal markers', 'Upload new results', 'Share results with your doctor']} />
+      <AccessibilityNotice>Need help? Start by uploading a report or scheduling a test. The example cards below show what results can look like.</AccessibilityNotice>
       <div className="card flex flex-col justify-between gap-4 p-6 md:flex-row md:items-center">
         <div>
           <h1 className="text-2xl font-black text-navy">Comprehensive Testing Workspace</h1>

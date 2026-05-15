@@ -95,6 +95,83 @@ export interface MedicationInteraction {
   concern: string;
 }
 
+export interface InsuranceProfile {
+  provider: string;
+  memberId: string;
+  groupNumber: string;
+  policyHolder: string;
+  relationship: string;
+  phone: string;
+}
+
+export interface CareTeamProfile {
+  primaryCarePhysician: string;
+  primaryClinic: string;
+  physicianPhone: string;
+  physicianEmail: string;
+  preferredHospital: string;
+  portalUsername: string;
+  orthopedicDoctor: string;
+  rheumatologist: string;
+  physicalTherapist: string;
+  nutritionist: string;
+  insuranceProvider: string;
+  integrationStatus: string;
+  lastSharedSummary: string;
+  consentToShare: boolean;
+}
+
+export interface ReminderPreferences {
+  method: string;
+  timing: string;
+  caregiverContact: string;
+}
+
+export interface TreatmentCalendarEvent {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  category: 'supplement' | 'therapy' | 'exercise' | 'test' | 'appointment' | 'lifestyle' | 'check-in';
+  status: 'pending' | 'completed' | 'missed' | 'upcoming';
+  why: string;
+  instructions: string;
+  frequency: string;
+}
+
+export interface OnboardingProfile {
+  fullName: string;
+  dateOfBirth: string;
+  phone: string;
+  email: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  insuranceProvider: string;
+  memberId: string;
+  groupNumber: string;
+  policyHolderName: string;
+  relationshipToPolicyHolder: string;
+  insurancePhone: string;
+  primaryCarePhysician: string;
+  physicianClinic: string;
+  physicianPhone: string;
+  physicianEmail: string;
+  preferredHospital: string;
+  portalUsername: string;
+  organizeRecords: boolean;
+  consentToShare: boolean;
+  orthopedicDoctor: string;
+  rheumatologist: string;
+  physicalTherapist: string;
+  nutritionist: string;
+  diagnosisStatus: string;
+  affectedJoints: string[];
+  currentMedications: string;
+  allergies: string;
+  majorConditions: string;
+  recentTests: string;
+}
+
 export interface AnalysisInputs {
   vitaminD: number;
   rbcMagnesium: number;

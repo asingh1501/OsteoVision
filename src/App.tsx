@@ -10,10 +10,11 @@ import { FindDoctors } from './pages/FindDoctors';
 import { MembershipPlans } from './pages/MembershipPlans';
 import { OAChanceScore } from './pages/OAChanceScore';
 import { LoginPage } from './pages/LoginPage';
+import { OnboardingHealthProfile } from './pages/OnboardingHealthProfile';
 import { TestHistory } from './pages/TestHistory';
 import { TreatmentEffectiveness } from './pages/TreatmentEffectiveness';
 import { TreatmentPlan } from './pages/TreatmentPlan';
-import type { PageId, RiskAnalysisResult } from './types';
+import type { OnboardingProfile, PageId, RiskAnalysisResult } from './types';
 
 const pageLabels: Partial<Record<PageId, string>> = {
   dashboard: 'Dashboard',
@@ -29,7 +30,12 @@ const pageLabels: Partial<Record<PageId, string>> = {
 };
 
 function App() {
-  const [userName, setUserName] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(() => localStorage.getItem('osteovision_user'));
+  const [onboardingComplete, setOnboardingComplete] = useState(() => localStorage.getItem('osteovision_onboarding_complete') === 'true');
+  const [, setOnboardingProfile] = useState<OnboardingProfile | null>(() => {
+    const saved = localStorage.getItem('osteovision_onboarding_profile');
+    return saved ? JSON.parse(saved) as OnboardingProfile : null;
+  });
   const [activePage, setActivePage] = useState<PageId>('dashboard');
   const [riskAnalysis, setRiskAnalysis] = useState<RiskAnalysisResult | null>(null);
 
@@ -55,7 +61,27 @@ function App() {
   };
 
   if (!userName) {
-    return <LoginPage onLogin={setUserName} />;
+    return <LoginPage onLogin={(name) => {
+      localStorage.setItem('osteovision_user', name);
+      setUserName(name);
+    }} />;
+  }
+
+  if (!onboardingComplete) {
+    return (
+      <OnboardingHealthProfile
+        onSkip={() => {
+          localStorage.setItem('osteovision_onboarding_complete', 'true');
+          setOnboardingComplete(true);
+        }}
+        onComplete={(profile) => {
+          localStorage.setItem('osteovision_onboarding_profile', JSON.stringify(profile));
+          localStorage.setItem('osteovision_onboarding_complete', 'true');
+          setOnboardingProfile(profile);
+          setOnboardingComplete(true);
+        }}
+      />
+    );
   }
 
   return (
@@ -63,7 +89,10 @@ function App() {
       <div className="flex">
         <Sidebar activePage={activePage} onNavigate={setActivePage} showScore={Boolean(riskAnalysis)} />
         <main className="min-w-0 flex-1">
-          <Topbar activePage={activePage} userName={userName} onSignOut={() => setUserName(null)} />
+          <Topbar activePage={activePage} userName={userName} onSignOut={() => {
+            localStorage.removeItem('osteovision_user');
+            setUserName(null);
+          }} />
           <div className="border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
             <select
               value={activePage}

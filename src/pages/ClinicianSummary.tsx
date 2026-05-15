@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { ProgressBar } from '../components/ProgressBar';
-import { biomarkers, imagingResults, patientProfile } from '../data/mockData';
+import { biomarkers, careTeamProfile, imagingResults, insuranceProfile, patientProfile, treatmentCalendarEvents } from '../data/mockData';
 import type { RiskAnalysisResult } from '../types';
+import { PageHero } from '../components/PageHero';
+import { ClipboardList } from 'lucide-react';
+import { CareTeamCard } from '../components/CareTeamCard';
 
 export function ClinicianSummary({ analysis }: { analysis: RiskAnalysisResult | null }) {
   const [actionMessage, setActionMessage] = useState('');
@@ -12,6 +15,7 @@ export function ClinicianSummary({ analysis }: { analysis: RiskAnalysisResult | 
 
   return (
     <div className="space-y-6">
+      <PageHero icon={ClipboardList} title="Clinician Summary" explanation="A doctor-friendly report that organizes your key health information before a visit." actions={['Review top concerns', 'Check care team details', 'Export or share report']} />
       <div className="card flex flex-col justify-between gap-4 p-6 md:flex-row md:items-center">
         <div>
           <h1 className="text-2xl font-black text-navy">Doctor-Friendly Visit Summary</h1>
@@ -51,6 +55,44 @@ export function ClinicianSummary({ analysis }: { analysis: RiskAnalysisResult | 
             ))}
           </div>
         </div>
+      </div>
+      <CareTeamCard />
+      <div className="card p-6">
+        <h2 className="text-2xl font-black text-navy">Doctor Quick View</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {[
+            ['Top concerns', analysis?.drivers.slice(0, 3).join(', ') || 'Pending analysis'],
+            ['Latest OA Chance Score', analysis ? `${analysis.score}%` : 'Not run'],
+            ['Abnormal markers', abnormal.slice(0, 3).map((item) => item.name).join(', ')],
+            ['Missed treatments', `${treatmentCalendarEvents.filter((event) => event.status === 'missed').length} task`],
+            ['Upcoming appointment', 'Clinician review on May 28 at 2:30 PM'],
+            ['Patient questions', 'Medication safety, physical therapy level, follow-up labs'],
+          ].map(([label, value]) => (
+            <div key={label} className="rounded-2xl bg-lavender p-4">
+              <p className="text-sm font-bold text-slate-600">{label}</p>
+              <p className="text-safe mt-1 text-lg font-black text-navy">{value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="card p-6">
+        <h2 className="text-2xl font-black text-navy">Insurance And Consent</h2>
+        <dl className="mt-4 grid gap-3 md:grid-cols-2">
+          {[
+            ['Insurance provider', insuranceProfile.provider],
+            ['Member ID', insuranceProfile.memberId],
+            ['Preferred hospital', careTeamProfile.preferredHospital],
+            ['Primary care physician', careTeamProfile.primaryCarePhysician],
+            ['Current specialists', `${careTeamProfile.orthopedicDoctor}; ${careTeamProfile.physicalTherapist}`],
+            ['Patient consent status', careTeamProfile.consentToShare ? 'Consent on file for mock sharing' : 'No sharing consent'],
+            ['Latest shared date', careTeamProfile.lastSharedSummary],
+          ].map(([label, value]) => (
+            <div key={label} className="rounded-2xl bg-lavender p-4">
+              <dt className="text-sm font-bold text-slate-600">{label}</dt>
+              <dd className="text-safe mt-1 text-lg font-black text-navy">{value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
       <div className="grid gap-6 xl:grid-cols-3">
         <Summary title="Imaging Summary" items={imagingResults.map((item) => `${item.name}: ${item.value}`)} />

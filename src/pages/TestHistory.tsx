@@ -4,6 +4,8 @@ import { ChartCard } from '../components/ChartCard';
 import { RiskBadge } from '../components/RiskBadge';
 import { TestResultCard } from '../components/TestResultCard';
 import { testHistory } from '../data/mockData';
+import { PageHero } from '../components/PageHero';
+import { History } from 'lucide-react';
 
 export function TestHistory() {
   const [left, setLeft] = useState('jan');
@@ -13,6 +15,7 @@ export function TestHistory() {
 
   return (
     <div className="space-y-6">
+      <PageHero icon={History} title="Test History" explanation="See changes in your test results over time." actions={['Review past dates', 'Compare two results', 'Look for improving markers']} />
       <div className="grid gap-4 md:grid-cols-3">
         {testHistory.map((item) => <TestResultCard key={item.id} item={item} selected={item.id === left || item.id === right} onSelect={() => (item.id === left ? setRight(item.id) : setLeft(item.id))} />)}
       </div>

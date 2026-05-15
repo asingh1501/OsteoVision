@@ -1,13 +1,17 @@
-import { CalendarPlus } from 'lucide-react';
+import { CalendarCheck, CalendarPlus } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { ProgressBar } from '../components/ProgressBar';
 import { StatCard } from '../components/StatCard';
 import { TreatmentCard } from '../components/TreatmentCard';
-import { initialTreatments } from '../data/mockData';
+import { initialTreatments, treatmentCalendarEvents } from '../data/mockData';
 import type { RiskAnalysisResult } from '../types';
 import { Activity, Focus, ShieldCheck } from 'lucide-react';
+import { PageHero } from '../components/PageHero';
+import { TreatmentCalendar } from '../components/TreatmentCalendar';
+import { ReminderSettings } from '../components/ReminderSettings';
+import { AccessibilityNotice } from '../components/AccessibilityNotice';
 
 export function TreatmentPlan({ analysis }: { analysis: RiskAnalysisResult | null }) {
   const [items, setItems] = useState(initialTreatments);
@@ -16,6 +20,12 @@ export function TreatmentPlan({ analysis }: { analysis: RiskAnalysisResult | nul
 
   return (
     <div className="space-y-6">
+      <PageHero
+        icon={CalendarCheck}
+        title="Treatment Plan"
+        explanation="See exactly what care tasks you need to complete and when."
+        actions={['Check today’s tasks', 'Mark treatments complete', 'Review upcoming appointments']}
+      />
       <div className="card flex flex-col justify-between gap-4 p-6 md:flex-row md:items-center">
         <div>
           <h1 className="text-2xl font-black text-navy">{analysis ? `${analysis.category.split(' / ')[0]} Treatment Plan` : 'Treatment Plan Pending Analysis'}</h1>
@@ -32,11 +42,26 @@ export function TreatmentPlan({ analysis }: { analysis: RiskAnalysisResult | nul
         <StatCard title="Primary Focus" value={analysis?.drivers[0]?.split(' ')[0] ?? 'Pending'} caption={analysis ? 'Based on top entered risk driver' : 'Will populate after analysis'} icon={Focus} />
       </div>
       <div className="card p-5">
-        <ProgressBar value={adherence} label="Treatment adherence" />
+        <ProgressBar value={adherence} label="How often you completed your care plan" />
+      </div>
+      <AccessibilityNotice>Need help? Start with the calendar. It shows what to do today, what is coming next, and what may have been missed.</AccessibilityNotice>
+      <TreatmentCalendar />
+      <div className="card p-6">
+        <h2 className="text-2xl font-black text-navy">This Week’s Tasks Agenda</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {treatmentCalendarEvents.slice(0, 6).map((event) => (
+            <div key={event.id} className="rounded-2xl bg-lavender p-4">
+              <p className="text-lg font-black text-navy">{event.title}</p>
+              <p className="text-base font-bold text-violet">{event.date} at {event.time}</p>
+              <p className="text-base text-slate-700">Status: {event.status}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className="space-y-4">
         {items.map((item) => <TreatmentCard key={item.id} item={item} onComplete={(id) => setItems((prev) => prev.map((entry) => entry.id === id ? { ...entry, complete: true, adherence: 'On track' } : entry))} />)}
       </div>
+      <ReminderSettings />
       <DisclaimerBox />
     </div>
   );

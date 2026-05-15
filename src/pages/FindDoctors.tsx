@@ -1,7 +1,8 @@
-import { CheckCircle2, Phone, Plus, Search, Star } from 'lucide-react';
+import { CheckCircle2, Hospital, Phone, Plus, Search, Star } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Button } from '../components/Button';
 import { doctors } from '../data/mockData';
+import { PageHero } from '../components/PageHero';
 
 const specialties = ['All', 'Orthopedics', 'Rheumatology', 'Physical Therapy', 'Clinical Nutrition', 'Functional Medicine', 'Endocrinology'];
 
@@ -19,6 +20,7 @@ export function FindDoctors() {
 
   return (
     <div className="space-y-6">
+      <PageHero icon={Hospital} title="Find Doctors" explanation="Find specialists who can help review your results and care plan." actions={['Filter by specialty', 'Contact a provider', 'Add doctors to your care team']} />
       <div className="card p-6">
         <h1 className="text-2xl font-black text-navy">Recommended Specialties Based On Latest Results</h1>
         <div className="mt-4 flex flex-wrap gap-2">

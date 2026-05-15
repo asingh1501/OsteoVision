@@ -1,6 +1,7 @@
-import { Check } from 'lucide-react';
+import { Check, CreditCard } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../components/Button';
+import { PageHero } from '../components/PageHero';
 
 const features = ['Comprehensive diagnostic testing support', 'OA Chance Score calculator', 'Unlimited testing history', 'Medical report upload', 'Drug genetic testing database', 'Personalized treatment plans', 'Phlebotomist/RN scheduling placeholder', 'Early detection alerts', 'Clinician-ready summaries', 'Educational resources', 'Provider recommendations', 'Treatment effectiveness tracking', 'Multi-disease expansion roadmap placeholder'];
 
@@ -9,6 +10,7 @@ export function MembershipPlans() {
 
   return (
     <div className="space-y-6">
+      <PageHero icon={CreditCard} title="OsteoVision Membership" explanation="Choose a plan for connected monitoring, reminders, and clinician-ready summaries." actions={['Compare plans', 'Review included features', 'Choose monthly or annual']} />
       <div className="gradient-panel rounded-2xl p-8">
         <h1 className="text-safe text-3xl font-black md:text-4xl">OsteoVision Membership</h1>
         <p className="mt-3 max-w-3xl text-slate-600">Complete access to connected osteoarthritis monitoring, personalized care planning, and clinician-ready insights.</p>

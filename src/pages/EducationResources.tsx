@@ -2,6 +2,7 @@ import { BookOpen, PlayCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../components/Button';
 import { educationResources } from '../data/mockData';
+import { PageHero } from '../components/PageHero';
 
 export function EducationResources() {
   const [selectedTitle, setSelectedTitle] = useState('');
@@ -11,6 +12,7 @@ export function EducationResources() {
 
   return (
     <div className="space-y-6">
+      <PageHero icon={BookOpen} title="Educational Resources" explanation="Learn about osteoarthritis care in simple, patient-friendly language." actions={['Read short articles', 'Watch helpful videos', 'Write down questions for your doctor']} />
       {selected && (
         <div className="card p-6">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">

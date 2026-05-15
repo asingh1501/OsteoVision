@@ -1,9 +1,10 @@
-import { Dna, Search, ShieldCheck } from 'lucide-react';
+import { Dna, Pill, Search, ShieldCheck } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 import { RiskBadge } from '../components/RiskBadge';
 import { medications } from '../data/mockData';
+import { PageHero } from '../components/PageHero';
 
 export function DrugGeneticTesting() {
   const [query, setQuery] = useState('');
@@ -13,6 +14,7 @@ export function DrugGeneticTesting() {
 
   return (
     <div className="space-y-6">
+      <PageHero icon={Pill} title="Drug Genetic Testing" explanation="Review possible medication-gene concerns to discuss with your clinician." actions={['Search your medications', 'Read risk notes', 'Ask your doctor before changing anything']} />
       <div className="card p-5">
         <div className="flex items-center gap-3 rounded-2xl border border-slate-300 bg-white px-4 py-3">
           <Search className="h-5 w-5 text-slate-400" />

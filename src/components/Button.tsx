@@ -14,7 +14,7 @@ export function Button({ children, variant = 'primary', className = '', ...props
 
   return (
     <button
-      className={`inline-flex max-w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-sm font-semibold leading-5 transition disabled:cursor-not-allowed disabled:opacity-60 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0 [&_svg]:stroke-[2.25] ${styles[variant]} ${className}`}
+      className={`focus-ring inline-flex min-h-12 max-w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-center text-base font-bold leading-6 transition disabled:cursor-not-allowed disabled:opacity-60 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:shrink-0 [&_svg]:stroke-[2.25] ${styles[variant]} ${className}`}
       {...props}
     >
       {children}
