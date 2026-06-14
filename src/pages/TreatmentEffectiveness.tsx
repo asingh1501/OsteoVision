@@ -28,7 +28,7 @@ export function TreatmentEffectiveness() {
         </div>
       </div>
       <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
-        <div className="gradient-panel rounded-2xl p-6">
+        <div className="surface-panel rounded-2xl p-6">
           <p className="font-bold text-violet">Treatment impact summary</p>
           <h1 className="text-safe mt-3 text-3xl font-black md:text-4xl">{rating}</h1>
           <p className="mt-4 text-slate-600">OsteoVision compares diagnostic markers and symptom patterns over time to help patients and clinicians understand whether the current care plan is improving, stabilizing, or worsening osteoarthritis-related risk.</p>

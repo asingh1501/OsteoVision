@@ -75,7 +75,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
             </div>
             <div>
               <h2 className="text-xl font-black text-navy">Schedule Testing</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-600">Calendar-style scheduling placeholder for lab panels, stool/urine kits, saliva/genetic testing, imaging review, and follow-up comparisons.</p>
+              <p className="mt-1 text-base leading-7 text-slate-700">Schedule lab panels, stool/urine kits, saliva/genetic testing, imaging review, and follow-up comparisons in this demo workflow.</p>
             </div>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
@@ -103,7 +103,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
             </div>
             <div>
               <h2 className="text-xl font-black text-navy">At-Home Blood Sample Visit</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-600">Schedule a phlebotomist or RN to collect blood samples at home for supported lab panels.</p>
+              <p className="mt-1 text-base leading-7 text-slate-700">Schedule a phlebotomist or RN to collect blood samples at home for supported lab panels.</p>
             </div>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
@@ -128,7 +128,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
       </div>
       <div>
         <p className="text-sm font-bold uppercase tracking-[0.18em] text-violet">Reference examples</p>
-        <p className="mt-1 text-sm text-slate-600">These example cards show what completed records can look like after user entry or lab upload. They are not used until the user runs the input-based analysis above.</p>
+        <p className="mt-1 text-base text-slate-700">These example cards show what completed records can look like after user entry or lab upload. They are not used until the user runs the input-based analysis.</p>
       </div>
       {groups.map((group) => (
         <section key={group}>
@@ -157,7 +157,7 @@ export function ComprehensiveTesting({ onStartAnalysis }: { onStartAnalysis: () 
       </section>
       <section className="card p-6">
         <h2 className="text-xl font-black text-navy">Suggestions To Discuss For Getting Markers Back In Range</h2>
-        <p className="mt-2 text-sm text-slate-600">These are education prompts for clinician discussion, not treatment instructions.</p>
+        <p className="mt-2 text-base text-slate-700">These are education prompts for clinician discussion, not treatment instructions.</p>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {[
             ['Vitamin D low', 'Ask about supervised repletion dosing, retesting interval, sunlight exposure, and calcium context.'],

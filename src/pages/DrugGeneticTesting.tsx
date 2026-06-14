@@ -20,10 +20,10 @@ export function DrugGeneticTesting() {
           <Search className="h-5 w-5 text-slate-400" />
           <input value={query} onChange={(event) => setQuery(event.target.value)} className="w-full outline-none" placeholder="Search medication by name, generic name, or category" />
         </div>
-        <p className="mt-3 text-sm text-slate-600">Medication effectiveness and side effects can vary based on genetics and medical history. Do not start, stop, or change medications without consulting a licensed clinician.</p>
+        <p className="mt-3 text-base font-semibold leading-7 text-slate-700">Medication effectiveness and side effects can vary based on genetics and medical history. Do not start, stop, or change medications without consulting a licensed clinician.</p>
       </div>
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="gradient-panel rounded-2xl p-6">
+        <div className="surface-panel rounded-2xl p-6">
           <div className="flex items-start gap-4">
             <div className="rounded-xl bg-slate-100 p-3 text-violet">
               <Dna className="h-7 w-7" />

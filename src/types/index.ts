@@ -141,6 +141,7 @@ export interface TreatmentCalendarEvent {
 
 export interface OnboardingProfile {
   fullName: string;
+  age: string;
   dateOfBirth: string;
   phone: string;
   email: string;

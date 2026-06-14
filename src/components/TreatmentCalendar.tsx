@@ -69,28 +69,30 @@ export function TreatmentCalendar() {
         </div>
       </div>
 
-      <div className="mt-6 rounded-2xl border border-slate-200">
-        <div className="border-b border-slate-200 bg-lavender p-4 text-center text-2xl font-black text-navy">{monthName}</div>
-        <div className="grid grid-cols-7 border-b border-slate-200 bg-white text-center text-sm font-black text-slate-600">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => <div key={day} className="p-2">{day}</div>)}
-        </div>
-        <div className="grid grid-cols-7">
-          {cells.map((day, index) => (
-            <div key={`${day}-${index}`} className={`min-h-32 border-b border-r border-slate-200 p-2 ${day === today.getDate() && monthOffset === 0 ? 'bg-amber-50' : 'bg-white'}`}>
-              {day && <div className="mb-2 text-lg font-black text-navy">{day}</div>}
-              <div className="space-y-1">
-                {day && byDay[day]?.slice(0, 2).map((event) => {
-                  const Icon = categoryIcon[event.category];
-                  return (
-                    <button key={event.id} onClick={() => setSelected(event)} className={`focus-ring w-full rounded-lg border px-2 py-1 text-left text-xs font-bold ${statusStyles[event.status]}`}>
-                      <span className="flex items-center gap-1"><Icon className="h-3.5 w-3.5 shrink-0" /> <span className="text-safe">{event.time}</span></span>
-                      <span className="text-safe block">{event.title}</span>
-                    </button>
-                  );
-                })}
+      <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200">
+        <div className="min-w-[760px]">
+          <div className="border-b border-slate-200 bg-lavender p-4 text-center text-2xl font-black text-navy">{monthName}</div>
+          <div className="grid grid-cols-7 border-b border-slate-200 bg-white text-center text-base font-black text-slate-700">
+            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => <div key={day} className="p-2">{day}</div>)}
+          </div>
+          <div className="grid grid-cols-7">
+            {cells.map((day, index) => (
+              <div key={`${day}-${index}`} className={`min-h-32 border-b border-r border-slate-200 p-2 ${day === today.getDate() && monthOffset === 0 ? 'bg-amber-50' : 'bg-white'}`}>
+                {day && <div className="mb-2 text-lg font-black text-navy">{day}</div>}
+                <div className="space-y-1">
+                  {day && byDay[day]?.slice(0, 2).map((event) => {
+                    const Icon = categoryIcon[event.category];
+                    return (
+                      <button key={event.id} onClick={() => setSelected(event)} className={`focus-ring w-full rounded-lg border px-2 py-1 text-left text-sm font-bold leading-5 ${statusStyles[event.status]}`}>
+                        <span className="flex items-center gap-1"><Icon className="h-4 w-4 shrink-0" /> <span className="text-safe">{event.time}</span></span>
+                        <span className="text-safe block">{event.title}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -115,7 +117,7 @@ export function TreatmentCalendar() {
       </div>
 
       {selected && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 p-4">
           <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl">
             <div className="flex items-start justify-between gap-4">
               <div>

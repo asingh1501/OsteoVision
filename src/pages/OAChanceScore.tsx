@@ -38,7 +38,7 @@ const inputLabels: Record<keyof AnalysisInputs, string> = {
   boneMarrowLesion: 'Bone Marrow Lesion Indicator',
   symptomSeverity: 'Symptom Severity',
   mobilityScore: 'Mobility Score',
-  treatmentAdherence: 'Treatment Adherence',
+  treatmentAdherence: 'Care Plan Completion',
 };
 const placeholders: Record<keyof AnalysisInputs, string> = {
   vitaminD: '40-60',
@@ -218,7 +218,7 @@ export function OAChanceScore({ analysis, onAnalysisComplete, onEditInputs }: { 
     { name: 'Inflammation', value: analysis.factorScores.inflammationScore, weight: '18%' },
     { name: 'Genetic', value: analysis.factorScores.geneticRisk, weight: '12%' },
     { name: 'Nutrients', value: analysis.factorScores.nutrientDeficiencyScore, weight: '10%' },
-    { name: 'Adherence', value: 100 - analysis.factorScores.treatmentAdherence, weight: '10%' },
+    { name: 'Care Plan', value: 100 - analysis.factorScores.treatmentAdherence, weight: '10%' },
   ];
 
   return (
@@ -241,7 +241,7 @@ export function OAChanceScore({ analysis, onAnalysisComplete, onEditInputs }: { 
             <span className="text-safe text-5xl font-black text-navy md:text-6xl">{analysis.score}%</span>
             <div className="min-w-0">
               <p className="text-safe text-2xl font-bold text-violet">{analysis.category}</p>
-              <p className="text-safe max-w-2xl text-slate-600">Generated from the patient-entered biomarkers, imaging severity, symptom pattern, mobility score, genetic risk percentile, and treatment adherence.</p>
+            <p className="text-safe max-w-2xl text-slate-600">Generated from patient-entered biomarkers, imaging severity, symptom pattern, mobility score, genetic risk percentile, and how often the care plan was completed.</p>
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -308,7 +308,7 @@ function AnalysisInputPanel({
         <div>
           <h2 className="text-xl font-black text-navy">Patient And Test Data</h2>
           <p className="text-safe mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            Enter values from uploaded lab reports, imaging summaries, symptom tracking, and treatment adherence. Blank fields are not estimated.
+            Enter values from uploaded lab reports, imaging summaries, symptom tracking, and care-plan completion. Blank fields are not estimated.
           </p>
         </div>
         <Button onClick={onSubmit}><PlayCircle /> Generate Report</Button>
@@ -358,8 +358,8 @@ function AnalysisInputPanel({
             <InputField label="Symptom Severity" unit="0-100" value={inputs.symptomSeverity} placeholder={placeholders.symptomSeverity} onChange={(value) => onChange('symptomSeverity', value)} />
             <InputField label="Mobility Score" unit="0-100" value={inputs.mobilityScore} placeholder={placeholders.mobilityScore} onChange={(value) => onChange('mobilityScore', value)} />
           </InputGroup>
-          <InputGroup title="Treatment Follow-Through" description="Adherence to the active clinician-reviewed care plan." icon={<ClipboardCheck />} accent="indigo">
-            <InputField label="Treatment Adherence" unit="%" value={inputs.treatmentAdherence} placeholder={placeholders.treatmentAdherence} onChange={(value) => onChange('treatmentAdherence', value)} />
+          <InputGroup title="Care Plan Follow-Through" description="How often the active clinician-reviewed care plan was completed." icon={<ClipboardCheck />} accent="indigo">
+            <InputField label="Care Plan Completion" unit="%" value={inputs.treatmentAdherence} placeholder={placeholders.treatmentAdherence} onChange={(value) => onChange('treatmentAdherence', value)} />
           </InputGroup>
         </div>
       </div>

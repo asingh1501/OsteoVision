@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from '../components/Button';
 import { DisclaimerBox } from '../components/DisclaimerBox';
 
-export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
+export function LoginPage({ onLogin }: { onLogin: (name: string, isNewAccount: boolean) => void }) {
   const [email, setEmail] = useState('maya.thompson@example.com');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState<'patient' | 'clinician'>('patient');
@@ -16,7 +16,7 @@ export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
       return;
     }
     setError('');
-    onLogin(role === 'patient' ? 'Maya Thompson' : 'Dr. Elena Rao');
+    onLogin(role === 'patient' ? 'Maya Thompson' : 'Dr. Elena Rao', mode === 'create');
   };
 
   return (
@@ -36,10 +36,10 @@ export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-violet">Secure care workspace</p>
             <h2 className="text-safe mt-3 text-4xl font-black leading-tight md:text-5xl">
-              Connected osteoarthritis monitoring for patients and care teams.
+              Connected osteoarthritis care for patients and clinicians.
             </h2>
             <p className="text-safe mt-4 max-w-2xl leading-7 text-slate-600">
-              Organize testing, symptoms, imaging summaries, medications, treatment adherence, and clinician-ready reports in one clean workflow.
+              Organize testing, symptoms, imaging summaries, medications, care-plan follow-through, and clinician-ready reports in one clean workflow.
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export function LoginPage({ onLogin }: { onLogin: (name: string) => void }) {
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
               <h2 className="text-2xl font-black text-navy">{mode === 'sign-in' ? 'Sign in' : 'Create account'}</h2>
-              <p className="mt-1 text-base text-slate-600">Connected osteoarthritis care for patients and clinicians.</p>
+              <p className="mt-1 text-base text-slate-600">Secure access for patients and care teams.</p>
             </div>
             <div className="rounded-xl bg-lavender p-3 text-violet">
               <ShieldCheck className="h-6 w-6" />

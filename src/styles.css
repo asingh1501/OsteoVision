@@ -28,7 +28,7 @@ button, input, select {
     @apply rounded-2xl border border-slate-200/80 bg-white shadow-soft;
   }
 
-  .gradient-panel {
+  .surface-panel {
     @apply border border-slate-200 bg-white text-navy shadow-soft;
   }
 

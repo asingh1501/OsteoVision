@@ -10,6 +10,7 @@ const joints = ['Knee', 'Hip', 'Hand', 'Spine', 'Shoulder', 'Other'];
 
 const emptyProfile: OnboardingProfile = {
   fullName: 'Maya Thompson',
+  age: '',
   dateOfBirth: '',
   phone: '',
   email: 'maya.thompson@example.com',
@@ -72,6 +73,7 @@ export function OnboardingHealthProfile({ onComplete, onSkip }: { onComplete: (p
         <section className="card p-6">
           {step === 0 && <Step icon={UserRound} title="Patient Information">
             <Field label="Full name" value={profile.fullName} onChange={(value) => update('fullName', value)} />
+            <Field label="Age" type="number" value={profile.age} onChange={(value) => update('age', value)} />
             <Field label="Date of birth" type="date" value={profile.dateOfBirth} onChange={(value) => update('dateOfBirth', value)} />
             <Field label="Phone number" value={profile.phone} onChange={(value) => update('phone', value)} />
             <Field label="Email" value={profile.email} onChange={(value) => update('email', value)} />
@@ -85,7 +87,7 @@ export function OnboardingHealthProfile({ onComplete, onSkip }: { onComplete: (p
             <Field label="Policy holder name" value={profile.policyHolderName} onChange={(value) => update('policyHolderName', value)} />
             <Field label="Relationship to policy holder" value={profile.relationshipToPolicyHolder} onChange={(value) => update('relationshipToPolicyHolder', value)} />
             <Field label="Insurance phone number" value={profile.insurancePhone} onChange={(value) => update('insurancePhone', value)} />
-            <button className="focus-ring rounded-2xl border border-violet bg-lavender p-4 text-left text-lg font-black text-violet">Upload insurance card placeholder</button>
+            <button className="focus-ring rounded-2xl border border-violet bg-lavender p-4 text-left text-lg font-black text-violet">Upload insurance card demo</button>
           </Step>}
           {step === 2 && <Step icon={Hospital} title="Primary Care / Hospital Integration">
             <Field label="Primary care physician name" value={profile.primaryCarePhysician} onChange={(value) => update('primaryCarePhysician', value)} />

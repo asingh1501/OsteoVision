@@ -13,7 +13,7 @@ export function ReminderSettings() {
         <div className="rounded-2xl bg-lavender p-3 text-violet"><BellRing className="h-7 w-7" /></div>
         <div>
           <h2 className="text-2xl font-black text-navy">Reminder Settings</h2>
-          <p className="mt-1 text-base text-slate-600">Mock reminder settings for app, text, email, or caregiver notifications.</p>
+          <p className="mt-1 text-base text-slate-600">Demo reminder settings for app, text, email, or caregiver notifications.</p>
         </div>
       </div>
       <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -21,9 +21,9 @@ export function ReminderSettings() {
           <span className="text-base font-bold text-navy">Reminder method</span>
           <select value={method} onChange={(event) => setMethod(event.target.value)} className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-base font-bold">
             <option>App notification</option>
-            <option>Text message placeholder</option>
-            <option>Email placeholder</option>
-            <option>Caregiver notification placeholder</option>
+            <option>Text message demo</option>
+            <option>Email demo</option>
+            <option>Caregiver notification demo</option>
           </select>
         </label>
         <label className="block">

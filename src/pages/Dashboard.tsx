@@ -1,6 +1,6 @@
 import { Activity, AlertTriangle, CalendarClock, CheckCircle2, FileUp, FlaskConical, Footprints, HeartPulse, ListChecks, PhoneCall, Pill, Smile, Stethoscope, TrendingUp, UserRoundPlus } from 'lucide-react';
 import { Line, LineChart, ResponsiveContainer, Tooltip } from 'recharts';
-import { patientProfile, testHistory } from '../data/mockData';
+import { patientProfile, testHistory, treatmentCalendarEvents } from '../data/mockData';
 import { Button } from '../components/Button';
 import { ChartCard } from '../components/ChartCard';
 import { DisclaimerBox } from '../components/DisclaimerBox';
@@ -9,7 +9,6 @@ import type { PageId, RiskAnalysisResult } from '../types';
 import { PageHero } from '../components/PageHero';
 import { ElderlyActionButton } from '../components/ElderlyActionButton';
 import { CareTeamCard } from '../components/CareTeamCard';
-import { treatmentCalendarEvents } from '../data/mockData';
 
 export function Dashboard({ onNavigate, analysis }: { onNavigate: (page: PageId) => void; analysis: RiskAnalysisResult | null }) {
   const quickActions = [
@@ -22,9 +21,9 @@ export function Dashboard({ onNavigate, analysis }: { onNavigate: (page: PageId)
 
   return (
     <div className="space-y-6">
-      <div className="gradient-panel rounded-2xl p-6 md:p-8">
+      <div className="surface-panel rounded-2xl p-6 md:p-8">
         <h1 className="text-safe text-3xl font-black">Welcome back to OsteoVision</h1>
-        <p className="mt-2 max-w-3xl text-slate-600">Tracking {patientProfile.primaryJoint} risk factors, symptoms, diagnostics, treatment adherence, and clinician-ready insights for {patientProfile.name}.</p>
+        <p className="mt-2 max-w-3xl text-lg leading-8 text-slate-700">Tracking {patientProfile.primaryJoint} risk factors, symptoms, tests, care tasks, and clinician-ready insights for {patientProfile.name}.</p>
       </div>
       <PageHero
         icon={HeartPulse}

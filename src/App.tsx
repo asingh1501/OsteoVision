@@ -61,8 +61,14 @@ function App() {
   };
 
   if (!userName) {
-    return <LoginPage onLogin={(name) => {
+    return <LoginPage onLogin={(name, isNewAccount) => {
       localStorage.setItem('osteovision_user', name);
+      if (isNewAccount) {
+        localStorage.removeItem('osteovision_onboarding_complete');
+        localStorage.removeItem('osteovision_onboarding_profile');
+        setOnboardingComplete(false);
+        setOnboardingProfile(null);
+      }
       setUserName(name);
     }} />;
   }
