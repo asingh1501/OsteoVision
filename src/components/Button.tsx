@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({ children, variant = 'primary', className = '', ...props }: Props) {
   const styles = {
-    primary: 'bg-violet text-white shadow-sm hover:bg-[#115e59]',
+    primary: 'bg-violet text-white shadow-sm hover:bg-[#5b21b6]',
     secondary: 'bg-white text-navy border border-slate-300 hover:border-violet hover:bg-lavender',
     ghost: 'text-navy hover:bg-lavender',
   };
