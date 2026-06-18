@@ -55,7 +55,7 @@ export function Sidebar({ activePage, onNavigate, showScore, userName, onSignOut
         <div className="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-navy shadow-sm">
           {userName}
         </div>
-        <Button variant="secondary" onClick={onSignOut}>
+        <Button onClick={onSignOut}>
           <LogOut />
           Sign out
         </Button>
