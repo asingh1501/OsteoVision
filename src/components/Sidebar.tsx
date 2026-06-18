@@ -1,4 +1,5 @@
-import { Activity, BarChart3, BookOpen, CalendarCheck, ClipboardList, Dna, FileText, HeartPulse, History, LayoutDashboard, LogOut, MapPin, Stethoscope, UserRound } from 'lucide-react';
+import { Activity, BarChart3, BookOpen, CalendarCheck, ClipboardList, Dna, FileText, HeartPulse, History, LayoutDashboard, LogOut, MapPin, Stethoscope } from 'lucide-react';
+import { Button } from './Button';
 import type { NavItem, PageId } from '../types';
 
 const baseNavItems: NavItem[] = [
@@ -50,23 +51,14 @@ export function Sidebar({ activePage, onNavigate, showScore, userName, onSignOut
           </button>
         ))}
       </nav>
-      <div className="mt-auto border-t border-slate-200 pt-4">
-        <div className="mb-2 flex items-center gap-3 rounded-2xl px-3 py-2">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-lavender text-violet">
-            <UserRound className="h-5 w-5" />
-          </div>
-          <div className="min-w-0">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Account</p>
-            <p className="truncate text-sm font-black text-navy">{userName}</p>
-          </div>
+      <div className="mt-auto flex flex-col gap-3">
+        <div className="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-navy shadow-sm">
+          {userName}
         </div>
-        <button
-          onClick={onSignOut}
-          className="focus-ring flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm font-bold text-slate-600 transition hover:bg-rose-50 hover:text-rose-700"
-        >
-          <LogOut className="h-5 w-5" />
+        <Button variant="secondary" onClick={onSignOut}>
+          <LogOut />
           Sign out
-        </button>
+        </Button>
       </div>
     </aside>
   );
