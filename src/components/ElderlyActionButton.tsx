@@ -5,10 +5,10 @@ export function ElderlyActionButton({ icon: Icon, label, onClick }: { icon: Luci
     <button
       aria-label={label}
       onClick={onClick}
-      className="focus-ring flex min-h-20 w-full items-center gap-3 rounded-2xl border border-violet bg-lavender p-4 text-left text-lg font-black text-navy transition hover:bg-white"
+      className="focus-ring flex min-h-24 w-full items-center gap-4 rounded-xl border border-violet bg-lavender p-5 text-left text-xl font-black text-navy transition hover:bg-white"
     >
       <span className="rounded-xl bg-violet p-3 text-white">
-        <Icon className="h-6 w-6" />
+        <Icon className="h-7 w-7" />
       </span>
       <span className="text-safe">{label}</span>
     </button>

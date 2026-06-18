@@ -6,10 +6,10 @@ export default {
       colors: {
         navy: '#10213f',
         ink: '#172036',
-        lavender: '#f5f3ff',
+        lavender: '#eef7fb',
         cyan: '#0f766e',
         magenta: '#be185d',
-        violet: '#6d28d9',
+        violet: '#0f766e',
       },
       boxShadow: {
         soft: '0 10px 28px rgba(15, 23, 42, 0.07)',

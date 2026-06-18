@@ -93,17 +93,25 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="flex">
-        <Sidebar activePage={activePage} onNavigate={setActivePage} showScore={Boolean(riskAnalysis)} />
-        <main className="min-w-0 flex-1">
-          <Topbar activePage={activePage} userName={userName} onSignOut={() => {
+        <Sidebar
+          activePage={activePage}
+          onNavigate={setActivePage}
+          showScore={Boolean(riskAnalysis)}
+          userName={userName}
+          onSignOut={() => {
             localStorage.removeItem('osteovision_user');
             setUserName(null);
-          }} />
+          }}
+        />
+        <main className="min-w-0 flex-1">
+          <Topbar activePage={activePage} />
           <div className="border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+            <label htmlFor="mobile-page-select" className="mb-2 block text-base font-black text-navy">You are viewing</label>
             <select
+              id="mobile-page-select"
               value={activePage}
               onChange={(event) => setActivePage(event.target.value as PageId)}
-              className="w-full rounded-xl border border-slate-300 bg-white p-3 font-bold text-navy"
+              className="w-full rounded-xl border border-slate-300 bg-white p-4 text-lg font-black text-navy"
             >
               {(activePage === 'score' || riskAnalysis) && <option value="score">{riskAnalysis ? 'OA Chance Score' : 'Risk Analysis'}</option>}
               {Object.entries(pageLabels).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
